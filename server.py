@@ -27,6 +27,40 @@ DB_PATH = os.path.join(BASE_DIR, "polytechnic.db")
 # In-memory active admin sessions
 ACTIVE_SESSIONS = set()
 
+def resolve_file(rel_path):
+    """
+    Bulletproof file locator.
+    Searches STATIC_DIR, BASE_DIR, and any nested subdirectories.
+    Prevents 'File Not Found' regardless of how files were uploaded to GitHub/Render.
+    """
+    clean = rel_path.lstrip("/").replace("\\", "/")
+    if clean.startswith("static/"):
+        sub = clean[7:]
+    else:
+        sub = clean
+
+    candidates = [
+        os.path.join(STATIC_DIR, sub),
+        os.path.join(STATIC_DIR, clean),
+        os.path.join(BASE_DIR, sub),
+        os.path.join(BASE_DIR, clean),
+        os.path.join(BASE_DIR, "govt-polytechnic-mahasi", "static", sub),
+        os.path.join(BASE_DIR, "govt-polytechnic-mahasi", sub),
+    ]
+
+    for c in candidates:
+        if os.path.exists(c) and os.path.isfile(c):
+            return c
+
+    # Fallback: search recursively in BASE_DIR for the exact filename
+    target = os.path.basename(clean)
+    if target:
+        for root, _, files in os.walk(BASE_DIR):
+            if target in files:
+                return os.path.join(root, target)
+
+    return None
+
 def get_db():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
@@ -86,22 +120,22 @@ class PolytechnicRequestHandler(http.server.BaseHTTPRequestHandler):
             return self.handle_api_get(path, query)
 
         # Clean routing for pages
-        if path == "/" or path == "":
-            return self.serve_file(os.path.join(STATIC_DIR, "index.html"))
-        elif path == "/admin" or path == "/admin/":
-            return self.serve_file(os.path.join(STATIC_DIR, "admin.html"))
-        
-        # Static asset serving
-        clean_path = path.lstrip("/")
-        if clean_path.startswith("static/"):
-            clean_path = clean_path[7:]
-        file_path = os.path.join(STATIC_DIR, clean_path)
+        if path == "/" or path == "" or path == "/index.html":
+            target = resolve_file("index.html")
+            if target:
+                return self.serve_file(target)
+        elif path == "/admin" or path == "/admin/" or path == "/admin.html":
+            target = resolve_file("admin.html")
+            if target:
+                return self.serve_file(target)
 
-        if os.path.exists(file_path) and os.path.isfile(file_path):
-            return self.serve_file(file_path)
+        # Static asset serving
+        resolved_file = resolve_file(path)
+        if resolved_file:
+            return self.serve_file(resolved_file)
         else:
             self.send_response(404)
-            self.send_header("Content-Type", "text/plain")
+            self.send_header("Content-Type", "text/plain; charset=utf-8")
             self.end_headers()
             self.wfile.write(b"404 Not Found")
 
