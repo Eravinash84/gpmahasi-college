@@ -78,51 +78,76 @@ body {
     padding: 0 24px;
 }
 
-/* Top Notification Marquee Bar */
+/* Top Notification Marquee Bar - Professional Ticker Layout */
 .top-notice-bar {
-    background: linear-gradient(90deg, #1e3a8a, #0369a1, #1e3a8a);
+    background: #060b18;
     color: #ffffff;
-    font-size: 0.85rem;
-    padding: 8px 0;
+    font-size: 0.86rem;
+    padding: 6px 0;
     font-weight: 500;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    display: flex;
-    align-items: center;
+    border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+    position: relative;
+    z-index: 1100;
 }
 
 .notice-ticker-wrapper {
     display: flex;
     align-items: center;
-    overflow: hidden;
-    white-space: nowrap;
+    width: 100%;
+    position: relative;
 }
 
-.ticker-badge {
-    background: #ef4444;
-    color: #fff;
-    padding: 2px 10px;
-    border-radius: var(--radius-full);
-    font-size: 0.72rem;
-    font-weight: 700;
+.ticker-badge-fixed {
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    color: #ffffff;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 0.74rem;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-right: 15px;
-    animation: pulseBadge 1.8s infinite;
+    letter-spacing: 0.08em;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    position: relative;
 }
 
-@keyframes pulseBadge {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.8; transform: scale(0.96); }
+.ticker-badge-fixed .pulse-dot {
+    width: 7px;
+    height: 7px;
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #ffffff;
+    animation: flashPulse 1s infinite;
+}
+
+.ticker-viewport {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+    margin-left: 14px;
+    mask-image: linear-gradient(to right, transparent 0%, black 15px, black calc(100% - 15px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15px, black calc(100% - 15px), transparent 100%);
 }
 
 .ticker-marquee {
     display: inline-block;
-    animation: marquee 25s linear infinite;
+    padding-left: 100%;
+    animation: smoothMarquee 32s linear infinite;
+    will-change: transform;
 }
 
-@keyframes marquee {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
+.ticker-marquee:hover {
+    animation-play-state: paused;
+}
+
+@keyframes smoothMarquee {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-100%, 0, 0); }
 }
 
 /* Main Navbar */
@@ -1191,6 +1216,80 @@ body {
     50% { opacity: 0.85; transform: scale(0.96); }
 }
 
+/* Faculty Directory Grid */
+.faculty-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.faculty-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-card);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.faculty-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--primary-light);
+    box-shadow: 0 15px 30px rgba(56, 189, 248, 0.2);
+}
+
+.faculty-avatar-wrap {
+    width: 64px;
+    height: 64px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(56, 189, 248, 0.2));
+    border: 1px solid var(--border-glow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin-bottom: 16px;
+}
+
+.faculty-card h4 {
+    font-size: 1.15rem;
+    color: #fff;
+    margin-bottom: 4px;
+    font-weight: 700;
+}
+
+.faculty-designation {
+    font-size: 0.85rem;
+    color: var(--primary-light);
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.faculty-dept-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-glass);
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+}
+
+.faculty-meta {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 16px;
+    flex: 1;
+}
+
+@media (max-width: 900px) {
+    .faculty-grid { grid-template-columns: 1fr; }
+}
+
 /* Responsive Media Queries */
 @media (max-width: 1024px) {
     .hero-grid { grid-template-columns: 1fr; }
@@ -1462,6 +1561,10 @@ body {
 
             <div class="admin-nav-item" data-tab="tabFaculty">
                 <span>👨‍🏫</span> Faculty Directory
+            </div>
+
+            <div class="admin-nav-item" data-tab="tabGallery">
+                <span>📸</span> Campus Photos Manager
             </div>
 
             <div class="admin-nav-item" data-tab="tabEnquiries">
@@ -1798,6 +1901,65 @@ body {
                 </div>
             </div>
 
+                        <!-- TAB: CAMPUS PHOTOS MANAGER -->
+            <div id="tabGallery" class="admin-tab-content" style="display:none;">
+                <div style="display:grid; grid-template-columns: 1fr 1.3fr; gap:26px;">
+                    <!-- Add Photo Form -->
+                    <div style="background:var(--bg-card); border:1px solid var(--border-glass); border-radius:var(--radius-lg); padding:26px;">
+                        <h3 style="font-size:1.15rem; color:#fff; margin-bottom:18px;">Upload Campus Photo</h3>
+                        <form id="addPhotoForm">
+                            <div class="form-group" style="margin-bottom:14px;">
+                                <label class="form-label">Photo Title *</label>
+                                <input type="text" id="newPhotoTitle" class="form-input" placeholder="e.g. Main Multi-Story Academic Wing" required>
+                            </div>
+                            <div class="form-group" style="margin-bottom:14px;">
+                                <label class="form-label">Category *</label>
+                                <select id="newPhotoCategory" class="form-select" required>
+                                    <option value="Campus">Campus & Building</option>
+                                    <option value="Students">Scholars & Students</option>
+                                    <option value="Academics">Academic Labs & Classrooms</option>
+                                    <option value="Events">Workshops & Events</option>
+                                </select>
+                            </div>
+                            <div class="form-group" style="margin-bottom:14px;">
+                                <label class="form-label">Description / Caption</label>
+                                <input type="text" id="newPhotoCaption" class="form-input" placeholder="e.g. State-of-the-art administrative & lecture halls">
+                            </div>
+                            <div class="form-group" style="margin-bottom:14px;">
+                                <label class="form-label">Select Image File (Direct Upload) *</label>
+                                <input type="file" id="newPhotoFileInput" class="form-input" accept="image/*" style="padding:8px;">
+                                <small style="color:#94a3b8; font-size:0.75rem; display:block; margin-top:4px;">Uploads from phone/PC are automatically optimized & saved to database.</small>
+                            </div>
+                            <div class="form-group" style="margin-bottom:14px;">
+                                <label class="form-label">Or Image URL (Optional)</label>
+                                <input type="url" id="newPhotoUrlInput" class="form-input" placeholder="https://example.com/photo.jpg">
+                            </div>
+                            
+                            <!-- Live Preview Box -->
+                            <div id="photoPreviewContainer" style="display:none; margin-bottom:16px; border:1px dashed var(--primary-light); border-radius:10px; padding:10px; text-align:center;">
+                                <p style="font-size:0.75rem; color:#38bdf8; margin-bottom:6px;">Image Preview</p>
+                                <img id="photoPreviewImg" src="" alt="Preview" style="max-width:100%; max-height:180px; border-radius:6px; object-fit:contain;">
+                            </div>
+
+                            <button type="submit" id="btnUploadPhoto" class="btn btn-primary" style="width:100%;">
+                                🚀 Publish Photo to Website
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Manage Current Photos -->
+                    <div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+                            <h3 style="font-size:1.15rem; color:#fff; margin:0;">Live Campus Gallery Photos</h3>
+                            <button class="btn btn-sm btn-outline" onclick="loadGalleryAdmin()">🔄 Refresh</button>
+                        </div>
+                        <div id="adminGalleryList" style="display:flex; flex-direction:column; gap:12px; max-height:680px; overflow-y:auto; padding-right:6px;">
+                            <!-- Populated dynamically by loadGalleryAdmin() -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- TAB 6: PUBLIC ENQUIRIES -->
             <div id="tabEnquiries" class="admin-tab-content" style="display:none;">
                 <h2 style="font-size:1.3rem; color:#fff; margin-bottom:20px;">Public Enquiries & Grievances Inbox</h2>
@@ -2094,17 +2256,29 @@ body {
     // View Application Details Modal
     window.viewAppDetails = function (app) {
         alert(
-            `APPLICATION DETAILS [${app.app_no}]\n\n` +
-            `Full Name: ${app.full_name}\n` +
-            `Father Name: ${app.father_name}\n` +
-            `DOB: ${app.dob} | Gender: ${app.gender} | Category: ${app.category}\n` +
-            `Branch: ${app.branch}\n` +
-            `10th Marks: ${app.high_school_percent}% (${app.high_school_board})\n` +
-            `JEECUP Roll: ${app.jeecup_roll_no || 'N/A'} | Rank: ${app.jeecup_rank || 'N/A'}\n` +
-            `Phone: ${app.phone} | Email: ${app.email}\n` +
-            `Address: ${app.address}, Dist: ${app.district}, Pin: ${app.pincode}\n` +
-            `Status: ${app.status}\n` +
-            `Admin Remarks: ${app.admin_remarks || 'None'}\n` +
+            `APPLICATION DETAILS [${app.app_no}]
+
+` +
+            `Full Name: ${app.full_name}
+` +
+            `Father Name: ${app.father_name}
+` +
+            `DOB: ${app.dob} | Gender: ${app.gender} | Category: ${app.category}
+` +
+            `Branch: ${app.branch}
+` +
+            `10th Marks: ${app.high_school_percent}% (${app.high_school_board})
+` +
+            `JEECUP Roll: ${app.jeecup_roll_no || 'N/A'} | Rank: ${app.jeecup_rank || 'N/A'}
+` +
+            `Phone: ${app.phone} | Email: ${app.email}
+` +
+            `Address: ${app.address}, Dist: ${app.district}, Pin: ${app.pincode}
+` +
+            `Status: ${app.status}
+` +
+            `Admin Remarks: ${app.admin_remarks || 'None'}
+` +
             `Applied At: ${app.created_at}`
         );
     };
@@ -2374,6 +2548,131 @@ body {
         });
     }
 
+    // 11. Campus Photo Gallery Management
+    let pendingPhotoData = "";
+
+    const photoFileInput = document.getElementById("newPhotoFileInput");
+    const photoUrlInput = document.getElementById("newPhotoUrlInput");
+    const previewContainer = document.getElementById("photoPreviewContainer");
+    const previewImg = document.getElementById("photoPreviewImg");
+
+    if (photoFileInput) {
+        photoFileInput.addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement("canvas");
+                    const maxDim = 900;
+                    let w = img.width, h = img.height;
+                    if (w > maxDim || h > maxDim) {
+                        if (w > h) { h = Math.round((h * maxDim) / w); w = maxDim; }
+                        else { w = Math.round((w * maxDim) / h); h = maxDim; }
+                    }
+                    canvas.width = w; canvas.height = h;
+                    const ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0, w, h);
+                    pendingPhotoData = canvas.toDataURL("image/jpeg", 0.82);
+                    if (previewImg) previewImg.src = pendingPhotoData;
+                    if (previewContainer) previewContainer.style.display = "block";
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    if (photoUrlInput) {
+        photoUrlInput.addEventListener("input", (e) => {
+            const url = e.target.value.trim();
+            if (url) {
+                pendingPhotoData = url;
+                if (previewImg) previewImg.src = url;
+                if (previewContainer) previewContainer.style.display = "block";
+            }
+        });
+    }
+
+    async function loadGalleryAdmin() {
+        const res = await apiRequest("/api/gallery");
+        const list = document.getElementById("adminGalleryList");
+        if (!list) return;
+
+        if (res.success && res.photos) {
+            if (res.photos.length === 0) {
+                list.innerHTML = `<p style="color:#94a3b8; text-align:center; padding:30px;">No campus photos in database.</p>`;
+                return;
+            }
+
+            list.innerHTML = res.photos.map(p => `
+                <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:12px; display:flex; gap:16px; align-items:center;">
+                    <div style="width:90px; height:65px; border-radius:8px; overflow:hidden; flex-shrink:0; background:#000;">
+                        <img src="${p.image_data}" alt="${p.title}" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div style="flex:1; min-width:0;">
+                        <strong style="color:#fff; font-size:0.95rem; display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${p.title}</strong>
+                        <span class="badge-pill badge-blue" style="font-size:0.7rem; padding:2px 8px; margin:2px 0; display:inline-block;">${p.category}</span>
+                        <p style="font-size:0.78rem; color:#94a3b8; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; margin:0;">${p.caption || 'No caption'}</p>
+                    </div>
+                    <button class="btn btn-sm btn-outline" style="color:#ef4444; border-color:#ef4444; flex-shrink:0;" onclick="window.deleteGalleryPhoto(${p.id})">
+                        🗑️ Delete
+                    </button>
+                </div>
+            `).join("");
+        }
+    }
+
+    window.deleteGalleryPhoto = async function (id) {
+        if (!confirm("Are you sure you want to delete this photo from the live website?")) return;
+        const res = await apiRequest(`/api/gallery?id=${id}`, "DELETE");
+        if (res.success) {
+            adminToast("Campus photo deleted successfully", "success");
+            loadGalleryAdmin();
+        } else {
+            adminToast(res.error || "Failed to delete photo", "error");
+        }
+    };
+
+    const addPhotoForm = document.getElementById("addPhotoForm");
+    if (addPhotoForm) {
+        addPhotoForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const title = document.getElementById("newPhotoTitle").value.trim();
+            const category = document.getElementById("newPhotoCategory").value;
+            const caption = document.getElementById("newPhotoCaption").value.trim();
+
+            const imgData = pendingPhotoData || document.getElementById("newPhotoUrlInput").value.trim();
+            if (!imgData) {
+                adminToast("Please select an image file or provide an image URL!", "error");
+                return;
+            }
+
+            const btn = document.getElementById("btnUploadPhoto");
+            btn.disabled = true;
+            btn.innerText = "Uploading Photo...";
+
+            const res = await apiRequest("/api/gallery", "POST", {
+                title, category, caption, image_data: imgData
+            });
+
+            btn.disabled = false;
+            btn.innerText = "🚀 Publish Photo to Website";
+
+            if (res.success) {
+                addPhotoForm.reset();
+                pendingPhotoData = "";
+                if (previewContainer) previewContainer.style.display = "none";
+                adminToast("Campus photo published to website!", "success");
+                loadGalleryAdmin();
+            } else {
+                adminToast(res.error || "Failed to upload photo", "error");
+            }
+        });
+    }
+
     // Tab Navigation for Admin Sections
     function initAdminNavTabs() {
         const tabs = document.querySelectorAll(".admin-nav-item");
@@ -2403,6 +2702,7 @@ body {
         loadStudents();
         loadNoticesAdmin();
         loadFacultyAdmin();
+        loadGalleryAdmin();
         loadEnquiries();
     }
 

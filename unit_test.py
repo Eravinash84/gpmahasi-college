@@ -25,7 +25,8 @@ def test_logic():
     assert "notices" in tables
     assert "faculty" in tables
     assert "enquiries" in tables
-    print("[PASS] All 6 tables verified")
+    assert "gallery_photos" in tables
+    print("[PASS] All 7 tables verified")
 
     # 2. Verify admin user
     c.execute("SELECT username, password_hash FROM admin_users WHERE username = 'admin'")
@@ -85,6 +86,12 @@ def test_logic():
     c.execute("SELECT COUNT(*) FROM notices WHERE title LIKE '%Round 2%'")
     assert c.fetchone()[0] >= 1
     print("[PASS] Notice creation verified")
+
+    # 8. Test Gallery photos
+    c.execute("SELECT COUNT(*) FROM gallery_photos")
+    photo_count = c.fetchone()[0]
+    print(f"[PASS] Verified {photo_count} campus gallery photos in database")
+    assert photo_count >= 5
 
     conn.close()
     print("\n[SUCCESS] 100% OF DATABASE, MODELS & BACKEND LOGIC VERIFIED WITH ZERO ERRORS!")

@@ -260,6 +260,16 @@ class PolytechnicRequestHandler(http.server.BaseHTTPRequestHandler):
                 rows = [dict(row) for row in cursor.fetchall()]
                 self.send_json({"success": True, "enquiries": rows})
 
+            # 7.1 Gallery Photos
+            elif path == "/api/gallery":
+                category = query.get("category", [None])[0]
+                if category and category != "All":
+                    cursor.execute("SELECT * FROM gallery_photos WHERE category = ? ORDER BY id DESC", (category,))
+                else:
+                    cursor.execute("SELECT * FROM gallery_photos ORDER BY id ASC")
+                rows = [dict(row) for row in cursor.fetchall()]
+                self.send_json({"success": True, "photos": rows})
+
             # 8. Check Auth Session
             elif path == "/api/auth/check":
                 is_auth = self.is_admin_authenticated()
@@ -461,6 +471,23 @@ class PolytechnicRequestHandler(http.server.BaseHTTPRequestHandler):
                 conn.commit()
                 return self.send_json({"success": True, "message": "Faculty added successfully"})
 
+            # 8. Add Gallery Photo (Admin)
+            elif path == "/api/gallery":
+                title = payload.get("title", "").strip()
+                category = payload.get("category", "Campus Life").strip()
+                image_data = payload.get("image_data", "").strip()
+                caption = payload.get("caption", "").strip()
+
+                if not title or not image_data:
+                    return self.send_error_json("Title and Image are required")
+
+                cursor.execute("""
+                INSERT INTO gallery_photos (title, category, image_data, caption)
+                VALUES (?, ?, ?, ?)
+                """, (title, category, image_data, caption))
+                conn.commit()
+                return self.send_json({"success": True, "id": cursor.lastrowid, "message": "Campus photo added successfully"})
+
             else:
                 self.send_error_json("Endpoint not found", 404)
 
@@ -520,6 +547,18 @@ class PolytechnicRequestHandler(http.server.BaseHTTPRequestHandler):
                 conn.commit()
                 return self.send_json({"success": True, "message": "Enquiry status updated"})
 
+            # 3. Update Gallery Photo
+            elif path == "/api/gallery":
+                photo_id = payload.get("id")
+                title = payload.get("title", "").strip()
+                category = payload.get("category", "Campus Life").strip()
+                caption = payload.get("caption", "").strip()
+                if not photo_id:
+                    return self.send_error_json("Photo ID is required")
+                cursor.execute("UPDATE gallery_photos SET title = ?, category = ?, caption = ? WHERE id = ?", (title, category, caption, photo_id))
+                conn.commit()
+                return self.send_json({"success": True, "message": "Photo updated successfully"})
+
             else:
                 self.send_error_json("Unknown PUT endpoint", 404)
 
@@ -558,6 +597,14 @@ class PolytechnicRequestHandler(http.server.BaseHTTPRequestHandler):
                 cursor.execute("DELETE FROM faculty WHERE id = ?", (faculty_id,))
                 conn.commit()
                 return self.send_json({"success": True, "message": "Faculty deleted"})
+
+            elif path == "/api/gallery":
+                photo_id = query.get("id", [None])[0]
+                if not photo_id:
+                    return self.send_error_json("Photo ID required")
+                cursor.execute("DELETE FROM gallery_photos WHERE id = ?", (photo_id,))
+                conn.commit()
+                return self.send_json({"success": True, "message": "Campus photo deleted"})
 
             else:
                 self.send_error_json("Unknown DELETE endpoint", 404)

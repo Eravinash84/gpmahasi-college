@@ -124,6 +124,18 @@ def init_db():
     )
     """)
 
+    # Campus Gallery Photos Table (Admin can add, edit, delete photos)
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS gallery_photos (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT NOT NULL,
+        category TEXT DEFAULT 'Campus Life',
+        image_data TEXT NOT NULL,
+        caption TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+    """)
+
     conn.commit()
 
     # Seed Admin User if not exists
@@ -229,6 +241,22 @@ def init_db():
         INSERT INTO enquiries (full_name, email, phone, subject, message, status)
         VALUES (?, ?, ?, ?, ?, ?)
         """, initial_enq)
+        conn.commit()
+
+    # Seed Initial Gallery Photos if empty
+    cursor.execute("SELECT COUNT(*) FROM gallery_photos")
+    if cursor.fetchone()[0] == 0:
+        initial_photos = [
+            ("Main Academic Building & Front Lawn", "Infrastructure", "/static/assets/campus-main.jpg", "Front elevation and entrance portico of Government Polytechnic Mahasi, Bahraich"),
+            ("Diploma Engineering Scholars", "Students", "/static/assets/campus-students.jpg", "Classroom & laboratory session in official college uniform • Er. Avinash Kumar & Peers"),
+            ("Academic Corridor Wing", "Campus", "/static/assets/campus-corridor.jpg", "Spacious, naturally lit corridors with safety railings connecting lecture halls"),
+            ("Front Porch & Administrative Block", "Infrastructure", "/static/assets/campus-building-vert.jpg", "राजकीय पॉलिटेक्निक महसी (बहराइच) मुख्य द्वार एवं प्रशासनिक परिसर"),
+            ("Multi-Story Campus Block", "Campus", "/static/assets/campus-hostel-block.jpg", "Multi-level wings housing specialized laboratories and workshops")
+        ]
+        cursor.executemany("""
+        INSERT INTO gallery_photos (title, category, image_data, caption)
+        VALUES (?, ?, ?, ?)
+        """, initial_photos)
         conn.commit()
 
     conn.close()
