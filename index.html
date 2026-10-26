@@ -380,184 +380,290 @@ img, video, canvas, svg {
     cursor: pointer;
 }
 
-/* Hero Section with 3D Canvas */
+
+/* Hero Section with Cinematic Real Campus Building Photo Background */
 .hero-section {
     position: relative;
-    min-height: 88vh;
+    min-height: calc(100vh - 110px);
     display: flex;
     align-items: center;
     overflow: hidden;
-    padding: 60px 0;
+    padding: 55px 0 65px;
+    background: #060b18;
 }
 
-.hero-3d-bg {
+.hero-campus-backdrop {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    background-image: url('/static/assets/campus-hero-hq.jpg');
+    background-size: cover;
+    background-position: center 35%;
+    background-repeat: no-repeat;
     z-index: 1;
-    pointer-events: none;
+    animation: heroPhotoBreathe 22s ease-in-out infinite alternate;
+    transform-origin: center center;
+    will-change: transform;
+}
+
+@keyframes heroPhotoBreathe {
+    0% { transform: scale(1); filter: brightness(0.95); }
+    100% { transform: scale(1.06); filter: brightness(1.05); }
+}
+
+.hero-campus-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        rgba(6, 11, 24, 0.96) 0%,
+        rgba(6, 11, 24, 0.90) 45%,
+        rgba(6, 11, 24, 0.70) 75%,
+        rgba(6, 11, 24, 0.52) 100%
+    ),
+    linear-gradient(
+        to top,
+        rgba(6, 11, 24, 1) 0%,
+        rgba(6, 11, 24, 0.3) 30%,
+        transparent 60%
+    );
+    z-index: 2;
 }
 
 .hero-grid {
     position: relative;
-    z-index: 2;
+    z-index: 3;
     display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: 40px;
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: 32px;
     align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
 }
 
-.hero-badge-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: rgba(56, 189, 248, 0.12);
-    border: 1px solid rgba(56, 189, 248, 0.3);
-    padding: 6px 16px;
-    border-radius: var(--radius-full);
-    font-size: 0.82rem;
-    color: var(--primary-light);
-    font-weight: 600;
-    margin-bottom: 22px;
+.hero-content {
+    max-width: 660px;
 }
 
-.hero-badge-pill .dot {
-    width: 8px;
-    height: 8px;
-    background: #38bdf8;
-    border-radius: 50%;
-    box-shadow: 0 0 10px #38bdf8;
-}
-
-.hero-title {
-    font-family: var(--font-heading);
-    font-size: 3.2rem;
-    font-weight: 800;
-    line-height: 1.15;
-    letter-spacing: -0.03em;
-    margin-bottom: 20px;
-}
-
-.hero-title span.highlight {
-    background: linear-gradient(135deg, #38bdf8, #818cf8, #fbbf24);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.hero-desc {
-    font-size: 1.1rem;
-    color: var(--text-secondary);
-    margin-bottom: 32px;
-    max-width: 580px;
-}
-
-.hero-actions {
+.hero-hindi-board {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #f59e0b;
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
     display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-    margin-bottom: 45px;
+    align-items: center;
+    gap: 8px;
 }
 
 .hero-stats-row {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, auto);
     gap: 20px;
-    border-top: 1px solid var(--border-glass);
-    padding-top: 25px;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.stat-item h3 {
-    font-size: 1.8rem;
-    font-weight: 800;
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.stat-num-box {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 5px;
+    white-space: nowrap;
+}
+
+.stat-number {
     font-family: var(--font-heading);
+    font-size: 1.85rem;
+    font-weight: 800;
     color: #ffffff;
+    line-height: 1;
 }
 
-.stat-item p {
-    font-size: 0.82rem;
-    color: var(--text-muted);
+.stat-suffix {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-light);
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.74rem;
+    color: #94a3b8;
     font-weight: 500;
+    line-height: 1.3;
+    white-space: nowrap;
 }
 
-/* Quick Notice / Application Status Card on Hero Right */
-.hero-glass-card {
-    background: rgba(15, 23, 42, 0.7);
-    backdrop-filter: blur(20px);
+/* Dedicated Compact Tracker Card */
+.hero-tracker-card {
+    background: rgba(15, 23, 42, 0.85);
     border: 1px solid var(--border-glow);
     border-radius: var(--radius-lg);
-    padding: 30px;
-    box-shadow: var(--shadow-card);
-    transition: transform 0.3s ease;
+    padding: 24px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(56, 189, 248, 0.15);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
 }
 
-.card-header-styled {
+/* Official Government Letterhead Gazette Modal (See Details) */
+.letterhead-modal-box {
+    max-width: 680px !important;
+    background: #ffffff !important;
+    color: #1e293b !important;
+    border-radius: var(--radius-md) !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8) !important;
+    border: 3px double #0284c7 !important;
+}
+
+.letterhead-header {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: #ffffff;
+    padding: 22px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-bottom: 3px solid #f59e0b;
+}
+
+.letterhead-emblem {
+    font-size: 2.4rem;
+    flex-shrink: 0;
+}
+
+.letterhead-title-block h2 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: 0.03em;
+}
+
+.letterhead-title-block h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #fbbf24;
+    margin: 3px 0 0;
+}
+
+.letterhead-title-block p {
+    font-size: 0.74rem;
+    color: #94a3b8;
+    margin: 3px 0 0;
+    line-height: 1.3;
+}
+
+.letterhead-meta-bar {
+    background: #f1f5f9;
+    border-bottom: 1px solid #cbd5e1;
+    padding: 10px 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-    border-bottom: 1px solid var(--border-glass);
-    padding-bottom: 14px;
-}
-
-.card-header-styled h3 {
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: #fff;
-    display: flex;
-    align-items: center;
+    flex-wrap: wrap;
     gap: 10px;
-}
-
-/* Section Common Styling */
-.section {
-    padding: 90px 0;
-    position: relative;
-}
-
-.section-alt {
-    background: rgba(15, 23, 42, 0.45);
-    border-top: 1px solid var(--border-glass);
-    border-bottom: 1px solid var(--border-glass);
-}
-
-.section-head {
-    text-align: center;
-    max-width: 720px;
-    margin: 0 auto 55px auto;
-}
-
-.section-tag {
     font-size: 0.82rem;
-    font-weight: 700;
-    color: var(--primary-light);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    display: inline-block;
-    margin-bottom: 12px;
+    color: #475569;
 }
 
-.section-title {
-    font-family: var(--font-heading);
-    font-size: 2.3rem;
+.letterhead-content {
+    padding: 24px;
+    max-height: 380px;
+    overflow-y: auto;
+}
+
+.letterhead-notice-title {
+    font-size: 1.18rem;
     font-weight: 800;
-    color: #ffffff;
-    letter-spacing: -0.02em;
+    color: #0f172a;
     margin-bottom: 14px;
+    line-height: 1.4;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 8px;
 }
 
-.section-subtitle {
-    font-size: 1rem;
-    color: var(--text-secondary);
+.letterhead-notice-body {
+    font-size: 0.94rem;
+    color: #334155;
+    line-height: 1.7;
+    white-space: pre-line;
 }
 
-/* Leadership Messages (Director & Principal) */
-.leadership-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 32px;
+.letterhead-footer {
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+    padding: 14px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
 }
+
+.letterhead-signatory strong {
+    display: block;
+    color: #0f172a;
+    font-size: 0.84rem;
+}
+
+.letterhead-signatory span {
+    font-size: 0.75rem;
+    color: #64748b;
+}
+
+/* 100% Zoom Responsive Layout Fixes */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.navbar .nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+    gap: 8px;
+}
+
+.nav-links {
+    gap: 4px;
+}
+
+.nav-links a {
+    font-size: 0.80rem;
+    padding: 4px 6px;
+}
+
+@media (max-width: 1024px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+    .hero-content {
+        max-width: 100%;
+    }
+    .hero-stats-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 
 .leader-card {
     background: var(--bg-card);
@@ -1828,19 +1934,21 @@ img, video, canvas, svg {
 
     <!-- Navigation Header -->
     <header class="navbar">
-        <div class="container nav-container">
+                <div class="container nav-container">
             <a href="/" class="nav-brand">
                 <div class="brand-emblem">🏛️</div>
-                <div class="brand-text"><h1 id="headerCollegeName">Govt. Polytechnic Mahasi, Bahraich</h1><p id="headerCollegeSub">Approved by AICTE • Affiliated to BTEUP Lucknow • Run under PPP Mode</p></div>
+                <div class="brand-text">
+                    <h1 id="headerCollegeName">Govt. Polytechnic Mahasi</h1>
+                    <p id="headerCollegeSub">Bahraich (U.P.) • Run Under PPP Mode</p>
+                </div>
             </a>
 
-                        <ul class="nav-links">
+            <ul class="nav-links">
                 <li><a href="#home" class="active">Home</a></li>
-                <li><a href="#leadership">Leadership</a></li>
                 <li><a href="#departments">Branches</a></li>
-                <li><a href="#notices">Notice Board & PDFs</a></li>
+                <li><a href="#notices">Notices</a></li>
+                <li><a href="#documents">Downloads</a></li>
                 <li><a href="#faculty">Faculty</a></li>
-                <li><a href="#admissions">Admissions</a></li>
                 <li><a href="#gallery">Campus Life</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -1849,12 +1957,13 @@ img, video, canvas, svg {
                 <a href="tel:+918423072439" class="helpline-quick-btn" title="Call Official Helpline">
                     <span>📞 8423072439</span>
                 </a>
-                <a href="#admissions" class="btn btn-primary btn-sm">Apply Online →</a>
                 <a href="/admin" class="admin-portal-btn" title="College Secretariat & Admin Portal">
                     <span>🔒 Admin Portal</span>
                 </a>
             </div>
 
+             id="mobileNavToggle" aria-label="Open Navigation">☰</button>
+        </div>
             <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Open Navigation">☰</button>
         </div>
     </header>
@@ -1879,82 +1988,101 @@ img, video, canvas, svg {
         <a href="/admin" class="btn btn-outline btn-sm" style="text-align:center;">Admin Portal Login</a>
     </div>
 
-    <!-- Hero Section with 3D Background Canvas -->
+        <!-- Hero Section with Real College Building Photo Backdrop -->
     <section class="hero-section" id="home">
-        <!-- 3D Interactive Canvas -->
-        <canvas class="hero-3d-bg" id="hero3dCanvas"></canvas>
+        <!-- Cinematic Background Photo with Parallax Breathe Effect -->
+        <div class="hero-campus-backdrop"></div>
+        <div class="hero-campus-overlay"></div>
 
         <div class="container hero-grid">
             <div class="hero-content">
-                <div class="hero-badge-pill"><span class="dot"></span><span id="heroBadgeTag">AICTE Approved • BTEUP Affiliated • PPP Model</span></div>
+                <div class="hero-badge-pill">
+                    <span class="dot"></span>
+                    <span id="heroBadgeTag">🌟 AICTE Approved • BTEUP Affiliated • PPP Mode</span>
+                </div>
 
                 <h1 class="hero-title" id="heroMainTitle">
-                    Pioneering Technical Excellence in <br>
-                    <span class="highlight">Govt. Polytechnic Mahasi</span>
+                    Government Polytechnic Mahasi
                 </h1>
+                
+                <div class="hero-hindi-board">
+                    🏛️ राजकीय पॉलिटेक्निक महसी (जनपद बहराइच)
+                </div>
 
-                <p class="hero-desc" id="heroMainDesc">Empowering students of Bahraich and Uttar Pradesh with high-caliber technical diploma education, industry-aligned laboratories, and practical engineering skills.</p>
+                <p class="hero-desc" id="heroMainDesc">
+                    उत्तर प्रदेश शासन द्वारा पीपीपी (PPP) मोड पर संचालित महसी बहराइच का शीर्ष राजकीय तकनीकी संस्थान। 3-वर्षीय इंजीनियरिंग डिप्लोमा, अत्याधुनिक प्रयोगशालाएं एवं 100% प्लेसमेंट मार्गदर्शन।
+                </p>
 
-                                <div class="hero-actions">
+                <div class="hero-actions">
                     <a href="#admissions" class="btn btn-gold">
                         <span>Apply for Admission 2026-27</span> →
                     </a>
-                    <a href="#notices" class="btn btn-outline" onclick="window.openHubTab && window.openHubTab('hubDocs')">
-                        <span>📄 Download Prospectus</span>
+                    <a href="#gallery" class="btn btn-outline">
+                        <span>📸 View Campus Life & Labs</span>
                     </a>
                 </div>
 
+                <!-- 4 Key Numbers (Number & Label cleanly aligned side-by-side) -->
                 <div class="hero-stats-row">
                     <div class="stat-item">
-                        <h3 id="statVal1">100%</h3>
-                        <p id="statLbl1">Placement Support</p>
+                        <div class="stat-num-box">
+                            <span class="stat-number" id="statVal1">100%</span>
+                        </div>
+                        <span class="stat-label" id="statLbl1">Placement Support</span>
                     </div>
+
                     <div class="stat-item">
-                        <h3 id="statVal2">4 Branches</h3>
-                        <p id="statLbl2">Engineering Diplomas</p>
+                        <div class="stat-num-box">
+                            <span class="stat-number" id="statVal2">4</span>
+                            <span class="stat-suffix">Branches</span>
+                        </div>
+                        <span class="stat-label" id="statLbl2">CSE • Civil • ME • EEE</span>
                     </div>
+
                     <div class="stat-item">
-                        <h3 id="statVal3">60 Seats</h3>
-                        <p id="statLbl3">Intake Per Branch</p>
+                        <div class="stat-num-box">
+                            <span class="stat-number" id="statVal3">60</span>
+                            <span class="stat-suffix">Seats</span>
+                        </div>
+                        <span class="stat-label" id="statLbl3">Per Branch Intake</span>
                     </div>
+
                     <div class="stat-item">
-                        <h3 id="statVal4">15+ Labs</h3>
-                        <p id="statLbl4">High-Tech Labs</p>
+                        <div class="stat-num-box">
+                            <span class="stat-number" id="statVal4">16+</span>
+                            <span class="stat-suffix">Labs</span>
+                        </div>
+                        <span class="stat-label" id="statLbl4">Modern Workshops</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Hero Right Card: Campus Preview & Application Tracker -->
-            <div class="hero-glass-card card-3d">
-                <!-- Featured Real Campus Photo (16:9 Aspect Ratio - 100% Crisp & Clear) -->
-                <div class="campus-photo-wrapper">
-                    <div class="campus-16-9-box">
-                        <img id="heroCampusImg" src="/static/assets/campus-main.jpg" alt="Official Campus Building">
-                    </div>
-                    <div class="campus-caption-strip">
+            <!-- Hero Right Card: Application Status Tracker (Compact & High-Tech) -->
+            <div class="hero-tracker-card card-3d">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <span style="font-size:1.3rem;">🔍</span>
                         <div>
-                            <strong id="heroCampusTitle" class="campus-strip-title">🏛️ Official Campus Building</strong>
-                            <span id="heroCampusSubtitle" class="campus-strip-sub">Multi-Story Academic Wing & Student Campus</span>
+                            <h3 style="font-size:1.05rem; color:#fff; margin:0;">Application Status Tracker</h3>
+                            <span style="font-size:0.72rem; color:var(--text-muted);">Real-Time Admission Query</span>
                         </div>
                     </div>
+                    <span class="live-badge" style="font-size:0.65rem; padding:2px 8px;"><span class="live-dot"></span>LIVE DB</span>
                 </div>
 
-                <div class="card-header-styled" style="margin-bottom:14px; padding-bottom:10px;">
-                    <h3 style="font-size:1.05rem;"><span>🔍</span> Application Status Tracker</h3>
-                    <span class="badge-pill badge-blue" style="font-size:0.75rem;">Live DB Query</span>
-                </div>
-                <p style="font-size:0.84rem; color:var(--text-secondary); margin-bottom:14px;">
+                <p style="font-size:0.84rem; color:var(--text-secondary); margin-bottom:14px; line-height:1.5;">
                     Enter your Application ID below to check review & seat allotment status:
                 </p>
-                <div style="display:flex; gap:10px; margin-bottom:10px;">
+
+                <div style="display:flex; gap:8px; margin-bottom:10px;">
                     <input type="text" id="inputTrackApp" class="form-input" placeholder="e.g. GPMB-2026-1001" style="text-transform:uppercase; padding:10px 14px; font-size:0.88rem;">
-                    <button class="btn btn-primary btn-sm" id="btnTrackApp" style="white-space:nowrap;">Track Status</button>
+                    <button class="btn btn-primary btn-sm" id="btnTrackApp" style="white-space:nowrap; padding:10px 18px;">Track</button>
                 </div>
-                <div id="trackResultBox" style="display:none;"></div>
+                <div id="trackResultBox" style="display:none; margin-top:10px;"></div>
                 
                 <div style="margin-top:14px; padding-top:12px; border-top:1px solid var(--border-glass); display:flex; justify-content:space-between; align-items:center;">
-                    <span style="font-size:0.78rem; color:var(--text-muted);">Helpline: 8423072439</span>
-                    <a href="#admissions" style="font-size:0.82rem; color:var(--primary-light); font-weight:600; text-decoration:none;">Apply Online &rarr;</a>
+                    <span style="font-size:0.76rem; color:var(--text-muted);">Helpline: 8423072439</span>
+                    <a href="#admissions" style="font-size:0.82rem; color:var(--primary-light); font-weight:600; text-decoration:none;">Online Admission &rarr;</a>
                 </div>
             </div>
         </div>
@@ -2796,36 +2924,13 @@ img, video, canvas, svg {
         renderHero();
     }
 
-        // --- 2. DEPARTMENT 3D INTERACTIVE VISUALIZER WITH BRANCH THEMES ---
+    // --- 2. DEPARTMENT 3D INTERACTIVE VISUALIZER ---
     const deptCanvas = document.getElementById("dept3dCanvas");
     if (deptCanvas) {
         const dctx = deptCanvas.getContext("2d");
         let dWidth, dHeight, dcx, dcy;
         let currentDept = "CSE";
         let dTime = 0;
-
-        // Spark particles for Mechanical Kinematics
-        const sparks = [];
-        for (let i = 0; i < 28; i++) {
-            sparks.push({
-                x: 0, y: 0,
-                vx: (Math.random() - 0.5) * 5,
-                vy: (Math.random() - 0.5) * 5,
-                life: Math.random() * 25,
-                maxLife: 25
-            });
-        }
-
-        // Matrix rain drops for CSE
-        const matrixDrops = [];
-        for (let i = 0; i < 20; i++) {
-            matrixDrops.push({
-                x: (i + 1) * 22,
-                y: Math.random() * 360,
-                speed: 1.2 + Math.random() * 2,
-                chars: "01001101011100101"
-            });
-        }
 
         function resizeDept() {
             const rect = deptCanvas.parentElement.getBoundingClientRect();
@@ -2843,508 +2948,242 @@ img, video, canvas, svg {
         };
 
         function renderDept3D() {
-            dTime += 0.024;
+            dTime += 0.02;
             dctx.clearRect(0, 0, dWidth, dHeight);
 
-            // =================================================================
-            // 1. CSE - HIGH-TECH CYBER MATRIX & 3D HYPERCUBE TESSERACT
-            // Theme: Electric Cyan (#06b6d4), Cyber Blue (#3b82f6), Matrix Green (#10b981)
-            // =================================================================
+            // Subtle dark background grid
+            dctx.fillStyle = "rgba(15, 23, 42, 0.6)";
+            dctx.fillRect(0, 0, dWidth, dHeight);
+
+            dctx.strokeStyle = "rgba(56, 189, 248, 0.08)";
+            dctx.lineWidth = 1;
+            const step = 30;
+            for (let x = 0; x < dWidth; x += step) {
+                dctx.beginPath();
+                dctx.moveTo(x, 0);
+                dctx.lineTo(x, dHeight);
+                dctx.stroke();
+            }
+            for (let y = 0; y < dHeight; y += step) {
+                dctx.beginPath();
+                dctx.moveTo(0, y);
+                dctx.lineTo(dWidth, y);
+                dctx.stroke();
+            }
+
             if (currentDept === "CSE") {
-                const bgGrad = dctx.createRadialGradient(dcx, dcy, 10, dcx, dcy, dWidth * 0.7);
-                bgGrad.addColorStop(0, "rgba(6, 182, 212, 0.1)");
-                bgGrad.addColorStop(1, "rgba(6, 11, 24, 0.96)");
-                dctx.fillStyle = bgGrad;
-                dctx.fillRect(0, 0, dWidth, dHeight);
-
-                // Cyber grid
-                dctx.strokeStyle = "rgba(6, 182, 212, 0.08)";
-                dctx.lineWidth = 1;
-                for (let x = 0; x < dWidth; x += 32) {
-                    dctx.beginPath();
-                    dctx.moveTo(x, 0);
-                    dctx.lineTo(x, dHeight);
-                    dctx.stroke();
-                }
-                for (let y = 0; y < dHeight; y += 32) {
-                    dctx.beginPath();
-                    dctx.moveTo(0, y);
-                    dctx.lineTo(dWidth, y);
-                    dctx.stroke();
-                }
-
-                // Falling Matrix Binary Streams on Flanks
-                dctx.font = "10px monospace";
-                dctx.fillStyle = "rgba(16, 185, 129, 0.4)";
-                matrixDrops.forEach(drop => {
-                    drop.y += drop.speed;
-                    if (drop.y > dHeight) drop.y = -15;
-                    const charIdx = Math.floor((drop.y + dTime * 8) % drop.chars.length);
-                    if (drop.x < dcx - 120) {
-                        dctx.fillText(drop.chars[charIdx], drop.x, drop.y);
-                    }
-                    const rx = dWidth - drop.x;
-                    if (rx > dcx + 120) {
-                        dctx.fillText(drop.chars[(charIdx + 4) % drop.chars.length], rx, drop.y);
-                    }
-                });
-
-                // 3D Rotating Hypercube
-                const cubeSize = 82;
-                const fov = 380;
-                const rotA = dTime * 0.8;
-                const rotB = dTime * 0.5;
+                // Render 3D Rotating Cyber Cube Matrix
+                const cubeSize = 90;
+                const fovDept = 350;
+                const rot = dTime;
 
                 const nodes = [
                     [-1, -1, -1], [1, -1, -1], [1, 1, -1], [-1, 1, -1],
-                    [-1, -1,  1], [1, -1,  1], [1, 1,  1], [-1, 1,  1],
-                    [-0.5, -0.5, -0.5], [0.5, -0.5, -0.5], [0.5, 0.5, -0.5], [-0.5, 0.5, -0.5],
-                    [-0.5, -0.5,  0.5], [0.5, -0.5,  0.5], [0.5, 0.5,  0.5], [-0.5, 0.5,  0.5]
+                    [-1, -1, 1], [1, -1, 1], [1, 1, 1], [-1, 1, 1],
+                    [0, 0, 0]
                 ];
 
                 const edges = [
                     [0, 1], [1, 2], [2, 3], [3, 0],
                     [4, 5], [5, 6], [6, 7], [7, 4],
-                    [0, 4], [1, 5], [2, 6], [3, 7],
-                    [8, 9], [9, 10], [10, 11], [11, 8],
-                    [12, 13], [13, 14], [14, 15], [15, 12],
-                    [8, 12], [9, 13], [10, 14], [11, 15],
-                    [0, 8], [1, 9], [2, 10], [3, 11],
-                    [4, 12], [5, 13], [6, 14], [7, 15]
+                    [0, 4], [1, 5], [2, 6], [3, 7]
                 ];
 
                 const projected = nodes.map(([x, y, z]) => {
                     const x0 = x * cubeSize, y0 = y * cubeSize, z0 = z * cubeSize;
-                    const cosA = Math.cos(rotA), sinA = Math.sin(rotA);
-                    const cosB = Math.cos(rotB), sinB = Math.sin(rotB);
+                    // Rotate
+                    const cosA = Math.cos(rot), sinA = Math.sin(rot);
+                    const cosB = Math.cos(rot * 0.7), sinB = Math.sin(rot * 0.7);
 
                     const x1 = x0 * cosA - z0 * sinA;
                     const z1 = z0 * cosA + x0 * sinA;
                     const y1 = y0 * cosB - z1 * sinB;
                     const z2 = z1 * cosB + y0 * sinB;
 
-                    const scale = fov / (fov + z2 + 250);
+                    const scale = fovDept / (fovDept + z2 + 250);
                     return { x: dcx + x1 * scale, y: dcy + y1 * scale, z: z2, scale: scale };
                 });
 
+                // Draw Edges
+                dctx.strokeStyle = "#38bdf8";
+                dctx.lineWidth = 2.5;
                 edges.forEach(([i, j]) => {
-                    const isInner = i >= 8 && j >= 8;
                     dctx.beginPath();
                     dctx.moveTo(projected[i].x, projected[i].y);
                     dctx.lineTo(projected[j].x, projected[j].y);
-                    dctx.strokeStyle = isInner ? "rgba(6, 182, 212, 0.9)" : "rgba(59, 130, 246, 0.65)";
-                    dctx.lineWidth = isInner ? 2.2 : 1.5;
                     dctx.stroke();
                 });
 
-                // Microservice Packet pulses
-                for (let k = 0; k < 6; k++) {
-                    const e = edges[(k * 3) % edges.length];
-                    const t = (dTime * 1.6 + k * 0.2) % 1;
-                    const p1 = projected[e[0]];
-                    const p2 = projected[e[1]];
-                    const px = p1.x + (p2.x - p1.x) * t;
-                    const py = p1.y + (p2.y - p1.y) * t;
-
+                // Inner Data Flow
+                dctx.strokeStyle = "#fbbf24";
+                dctx.lineWidth = 1.5;
+                for (let k = 0; k < 4; k++) {
+                    const tOffset = (dTime * 2 + k) % 1;
+                    const pA = projected[k];
+                    const pB = projected[(k + 1) % 4];
+                    const packetX = pA.x + (pB.x - pA.x) * tOffset;
+                    const packetY = pA.y + (pB.y - pA.y) * tOffset;
                     dctx.beginPath();
-                    dctx.arc(px, py, 3.5, 0, Math.PI * 2);
+                    dctx.arc(packetX, packetY, 4, 0, Math.PI * 2);
                     dctx.fillStyle = "#38bdf8";
-                    dctx.shadowColor = "#06b6d4";
-                    dctx.shadowBlur = 10;
                     dctx.fill();
-                    dctx.shadowBlur = 0;
                 }
 
-                // Cyber Nodes
+                // Draw Nodes
                 projected.forEach((p, idx) => {
                     dctx.beginPath();
-                    dctx.arc(p.x, p.y, idx >= 8 ? 4 : 5.5, 0, Math.PI * 2);
-                    dctx.fillStyle = idx >= 8 ? "#10b981" : "#06b6d4";
-                    dctx.shadowColor = idx >= 8 ? "#34d399" : "#38bdf8";
-                    dctx.shadowBlur = 8;
+                    dctx.arc(p.x, p.y, idx === 8 ? 9 : 6, 0, Math.PI * 2);
+                    dctx.fillStyle = idx === 8 ? "#34d399" : "#60a5fa";
                     dctx.fill();
-                    dctx.shadowBlur = 0;
                 });
 
-                // Quantum AI Core Pulse
-                const corePulse = Math.sin(dTime * 4) * 4;
-                dctx.beginPath();
-                dctx.arc(dcx, dcy, 12 + corePulse, 0, Math.PI * 2);
-                dctx.fillStyle = "rgba(6, 182, 212, 0.35)";
-                dctx.fill();
-
-                dctx.fillStyle = "#06b6d4";
-                dctx.font = "bold 13px 'Plus Jakarta Sans', sans-serif";
+                dctx.fillStyle = "#38bdf8";
+                dctx.font = "bold 15px Inter, sans-serif";
                 dctx.textAlign = "center";
-                dctx.fillText("⚡ CSE 3D SIMULATION: CLOUD ARCHITECTURE, AI & CYBER SYSTEMS", dcx, dHeight - 18);
-            }
+                dctx.fillText("CSE 3D ARCHITECTURE: CLOUD & DISTRIBUTED SYSTEMS", dcx, dHeight - 20);
 
-            // =================================================================
-            // 2. CIVIL - 3D CAD BLUEPRINT & CANTILEVER TRUSS WITH LOAD DEFLECTION
-            // Theme: Construction Gold (#f59e0b), Blueprint Yellow (#fbbf24), Safety Amber (#d97706)
-            // =================================================================
-            else if (currentDept === "CIVIL") {
-                const bgGrad = dctx.createRadialGradient(dcx, dcy, 20, dcx, dcy, dWidth * 0.7);
-                bgGrad.addColorStop(0, "rgba(245, 158, 11, 0.08)");
-                bgGrad.addColorStop(1, "rgba(8, 14, 28, 0.96)");
-                dctx.fillStyle = bgGrad;
-                dctx.fillRect(0, 0, dWidth, dHeight);
+            } else if (currentDept === "CIVIL") {
+                // Render 3D Structural Truss & Bridge Model
+                const trussW = 280, trussH = 80;
+                const divisions = 6;
+                const startX = dcx - trussW / 2;
+                const baseY = dcy + 40;
+                const topY = dcy - 45;
 
-                // CAD Blueprint Grid
-                dctx.strokeStyle = "rgba(245, 158, 11, 0.1)";
-                dctx.lineWidth = 1;
-                for (let x = 0; x < dWidth; x += 28) {
-                    dctx.beginPath();
-                    dctx.moveTo(x, 0);
-                    dctx.lineTo(x, dHeight);
-                    dctx.stroke();
-                }
-                for (let y = 0; y < dHeight; y += 28) {
-                    dctx.beginPath();
-                    dctx.moveTo(0, y);
-                    dctx.lineTo(dWidth, y);
-                    dctx.stroke();
-                }
-
-                // Isometric Skyscraper Skeleton in background
-                const bldgX = dcx - 140;
-                const bldgY = dcy - 50;
-                dctx.strokeStyle = "rgba(251, 191, 36, 0.22)";
-                dctx.lineWidth = 1;
-                for (let f = 0; f < 5; f++) {
-                    dctx.strokeRect(bldgX - 35, bldgY - f * 22, 70, 20);
-                }
-
-                // Warren Cantilever Bridge
-                const bridgeW = Math.min(dWidth * 0.8, 360);
-                const bridgeH = 85;
-                const startX = dcx - bridgeW / 2;
-                const baseY = dcy + 35;
-                const topY = baseY - bridgeH;
-                const bays = 7;
-                const bayW = bridgeW / bays;
-                const deflection = Math.sin(dTime * 3) * 6;
-
-                // Road Deck (Bottom Chord)
-                dctx.beginPath();
-                dctx.moveTo(startX, baseY);
-                for (let i = 1; i <= bays; i++) {
-                    const bx = startX + i * bayW;
-                    const by = baseY + Math.sin((i / bays) * Math.PI) * deflection;
-                    dctx.lineTo(bx, by);
-                }
-                dctx.strokeStyle = "#f59e0b";
-                dctx.lineWidth = 4;
-                dctx.stroke();
-
-                // Top Chord
-                dctx.beginPath();
-                dctx.moveTo(startX + bayW, topY);
-                dctx.lineTo(startX + bridgeW - bayW, topY);
                 dctx.strokeStyle = "#fbbf24";
                 dctx.lineWidth = 3;
+
+                // Bottom and Top chords
+                dctx.beginPath();
+                dctx.moveTo(startX, baseY);
+                dctx.lineTo(startX + trussW, baseY);
+                dctx.moveTo(startX + 30, topY);
+                dctx.lineTo(startX + trussW - 30, topY);
                 dctx.stroke();
 
-                // Web Members
-                dctx.strokeStyle = "rgba(245, 158, 11, 0.85)";
+                // Diagonal Web members
+                dctx.strokeStyle = "#38bdf8";
                 dctx.lineWidth = 2;
+                const segW = trussW / divisions;
                 dctx.beginPath();
-                for (let i = 0; i <= bays; i++) {
-                    const bx = startX + i * bayW;
-                    const by = baseY + Math.sin((i / bays) * Math.PI) * deflection;
-                    if (i >= 1 && i <= bays - 1) {
-                        dctx.moveTo(bx, by);
-                        dctx.lineTo(startX + i * bayW, topY);
-                    }
-                    if (i < bays) {
-                        const nextBx = startX + (i + 1) * bayW;
-                        const nextBy = baseY + Math.sin(((i + 1) / bays) * Math.PI) * deflection;
-                        if (i % 2 === 0) {
-                            dctx.moveTo(bx, by);
-                            dctx.lineTo(startX + (i + 1) * bayW, topY);
-                        } else {
-                            dctx.moveTo(startX + i * bayW, topY);
-                            dctx.lineTo(nextBx, nextBy);
-                        }
+                for (let i = 0; i <= divisions; i++) {
+                    const bx = startX + i * segW;
+                    const tx = startX + 30 + (i * (trussW - 60)) / divisions;
+                    dctx.moveTo(bx, baseY);
+                    dctx.lineTo(tx, topY);
+                    if (i < divisions) {
+                        dctx.lineTo(bx + segW, baseY);
                     }
                 }
                 dctx.stroke();
 
-                // Structural Joint Pins with Stress Indicators
-                for (let i = 0; i <= bays; i++) {
-                    const bx = startX + i * bayW;
-                    const by = baseY + Math.sin((i / bays) * Math.PI) * deflection;
-                    const stressVal = Math.sin((i / bays) * Math.PI + dTime * 2);
-
+                // Structural Joint Pins with stress indicators
+                for (let i = 0; i <= divisions; i++) {
+                    const bx = startX + i * segW;
                     dctx.beginPath();
-                    dctx.arc(bx, by, 5, 0, Math.PI * 2);
-                    dctx.fillStyle = stressVal > 0.4 ? "#ef4444" : (stressVal > -0.2 ? "#f59e0b" : "#10b981");
-                    dctx.shadowColor = dctx.fillStyle;
-                    dctx.shadowBlur = 8;
+                    dctx.arc(bx, baseY, 5, 0, Math.PI * 2);
+                    dctx.fillStyle = "#f87171";
                     dctx.fill();
-                    dctx.shadowBlur = 0;
                 }
-
-                // Dynamic Load Vector Arrow
-                const midX = dcx;
-                const midY = baseY + deflection;
-                dctx.fillStyle = "#ef4444";
-                dctx.beginPath();
-                dctx.moveTo(midX, midY - 26);
-                dctx.lineTo(midX, midY - 6);
-                dctx.strokeStyle = "#ef4444";
-                dctx.lineWidth = 2.5;
-                dctx.stroke();
-                dctx.beginPath();
-                dctx.moveTo(midX - 5, midY - 12);
-                dctx.lineTo(midX, midY - 4);
-                dctx.lineTo(midX + 5, midY - 12);
-                dctx.fill();
 
                 dctx.fillStyle = "#fbbf24";
-                dctx.font = "bold 10px monospace";
-                dctx.fillText("LOAD: 120 kN", midX + 12, midY - 14);
-
-                dctx.fillStyle = "#f59e0b";
-                dctx.font = "bold 13px 'Plus Jakarta Sans', sans-serif";
+                dctx.font = "bold 15px Inter, sans-serif";
                 dctx.textAlign = "center";
-                dctx.fillText("🏛️ CIVIL 3D STRUCTURAL ANALYSIS: CANTILEVER TRUSS & LOAD STRESS", dcx, dHeight - 18);
-            }
+                dctx.fillText("CIVIL 3D STRUCTURAL ANALYSIS: WARREN TRUSS & LOAD STRESS", dcx, dHeight - 20);
 
-            // =================================================================
-            // 3. MECHANICAL - 3-GEAR KINEMATICS, SPARKS & ENGINE PISTON
-            // Theme: Industrial Flame Orange (#f97316), Crimson Red (#ef4444), Metallic Gold (#f59e0b)
-            // =================================================================
-            else if (currentDept === "ME") {
-                const bgGrad = dctx.createRadialGradient(dcx, dcy - 20, 10, dcx, dcy, dWidth * 0.7);
-                bgGrad.addColorStop(0, "rgba(249, 115, 22, 0.1)");
-                bgGrad.addColorStop(1, "rgba(18, 12, 18, 0.96)");
-                dctx.fillStyle = bgGrad;
-                dctx.fillRect(0, 0, dWidth, dHeight);
+            } else if (currentDept === "ME") {
+                // Render 3D Interlocking Gear Assembly
+                const gearA = { x: dcx - 60, y: dcy, r: 65, teeth: 16, speed: dTime * 1.5, color: "#38bdf8" };
+                const gearB = { x: dcx + 60, y: dcy, r: 65, teeth: 16, speed: -dTime * 1.5 + (Math.PI / 16), color: "#f59e0b" };
 
-                // Circular motion grid
-                dctx.strokeStyle = "rgba(249, 115, 22, 0.08)";
-                dctx.lineWidth = 1;
-                for (let r = 40; r < 200; r += 40) {
-                    dctx.beginPath();
-                    dctx.arc(dcx, dcy - 30, r, 0, Math.PI * 2);
-                    dctx.stroke();
-                }
-
-                // 3 Kinematic Gears
-                const gearA = { x: dcx - 70, y: dcy - 30, r: 60, teeth: 16, speed: dTime * 1.8, color: "#f97316" };
-                const gearB = { x: dcx + 55, y: dcy - 30, r: 68, teeth: 18, speed: -dTime * 1.8 * (16 / 18) + 0.15, color: "#ef4444" };
-                const gearC = { x: dcx - 10, y: dcy - 95, r: 35, teeth: 10, speed: -dTime * 1.8 * (16 / 10), color: "#f59e0b" };
-
-                [gearA, gearB, gearC].forEach(gear => {
+                [gearA, gearB].forEach(gear => {
                     dctx.save();
                     dctx.translate(gear.x, gear.y);
                     dctx.rotate(gear.speed);
 
-                    // Teeth
+                    // Gear Teeth
                     dctx.fillStyle = gear.color;
                     for (let t = 0; t < gear.teeth; t++) {
                         dctx.save();
                         dctx.rotate((t * Math.PI * 2) / gear.teeth);
-                        dctx.fillRect(-5, -gear.r - 7, 10, 14);
+                        dctx.fillRect(-6, -gear.r - 8, 12, 16);
                         dctx.restore();
                     }
 
-                    // Rim
+                    // Gear Body
                     dctx.beginPath();
                     dctx.arc(0, 0, gear.r, 0, Math.PI * 2);
-                    dctx.fillStyle = gear.color;
                     dctx.fill();
 
-                    // Cutout
+                    // Gear Inner Ring Cutouts
+                    dctx.fillStyle = "#0f172a";
                     dctx.beginPath();
                     dctx.arc(0, 0, gear.r * 0.65, 0, Math.PI * 2);
-                    dctx.fillStyle = "#0c0a09";
                     dctx.fill();
 
-                    // Spokes
+                    // Gear Spokes
                     dctx.strokeStyle = gear.color;
                     dctx.lineWidth = 4;
                     for (let s = 0; s < 4; s++) {
                         dctx.beginPath();
                         dctx.moveTo(0, 0);
                         const a = (s * Math.PI) / 2;
-                        dctx.lineTo(Math.cos(a) * gear.r * 0.65, Math.sin(a) * gear.r * 0.65);
+                        dctx.lineTo(Math.cos(a) * gear.r, Math.sin(a) * gear.r);
                         dctx.stroke();
                     }
 
-                    // Hub
+                    // Central Hub
                     dctx.beginPath();
-                    dctx.arc(0, 0, 12, 0, Math.PI * 2);
-                    dctx.fillStyle = "#e2e8f0";
+                    dctx.arc(0, 0, 14, 0, Math.PI * 2);
+                    dctx.fillStyle = "#ffffff";
                     dctx.fill();
+
                     dctx.restore();
                 });
 
-                // Spark Particles Burst at Mesh Point
-                const meshX = dcx - 8;
-                const meshY = dcy - 30;
-                sparks.forEach(s => {
-                    s.x += s.vx;
-                    s.y += s.vy;
-                    s.life++;
-                    if (s.life > s.maxLife) {
-                        s.x = meshX + (Math.random() - 0.5) * 6;
-                        s.y = meshY + (Math.random() - 0.5) * 6;
-                        s.vx = (Math.random() - 0.5) * 5;
-                        s.vy = (Math.random() - 0.5) * 5 - 1.5;
-                        s.life = 0;
-                    }
-                    dctx.beginPath();
-                    dctx.arc(s.x, s.y, 2, 0, Math.PI * 2);
-                    dctx.fillStyle = Math.random() > 0.5 ? "#f59e0b" : "#f97316";
-                    dctx.fill();
-                });
-
-                // Reciprocating Engine Piston
-                const crankR = 24;
-                const crankAngle = dTime * 2.5;
-                const crankCenterX = dcx;
-                const crankCenterY = dcy + 75;
-                const pinX = crankCenterX + Math.cos(crankAngle) * crankR;
-                const pinY = crankCenterY + Math.sin(crankAngle) * crankR;
-                const rodLen = 65;
-                const pistonX = crankCenterX;
-                const pistonY = pinY - Math.sqrt(Math.max(0, rodLen * rodLen - Math.pow(pinX - crankCenterX, 2)));
-
-                // Cylinder Walls
-                dctx.strokeStyle = "rgba(226, 232, 240, 0.45)";
-                dctx.lineWidth = 3;
-                dctx.strokeRect(crankCenterX - 22, crankCenterY - 80, 44, 45);
-
-                // Connecting Rod
-                dctx.strokeStyle = "#94a3b8";
-                dctx.lineWidth = 4;
-                dctx.beginPath();
-                dctx.moveTo(pinX, pinY);
-                dctx.lineTo(pistonX, pistonY);
-                dctx.stroke();
-
-                // Piston Head
-                dctx.fillStyle = "#ef4444";
-                dctx.fillRect(pistonX - 18, pistonY - 10, 36, 16);
-
-                // Crankshaft Disc
-                dctx.beginPath();
-                dctx.arc(crankCenterX, crankCenterY, crankR, 0, Math.PI * 2);
-                dctx.strokeStyle = "rgba(249, 115, 22, 0.4)";
-                dctx.lineWidth = 2;
-                dctx.stroke();
-
-                dctx.fillStyle = "#f97316";
-                dctx.font = "bold 13px 'Plus Jakarta Sans', sans-serif";
+                dctx.fillStyle = "#f59e0b";
+                dctx.font = "bold 15px Inter, sans-serif";
                 dctx.textAlign = "center";
-                dctx.fillText("⚙️ MECHANICAL 3D KINEMATICS: DYNAMIC GEAR TRAIN & RECIPROCATING PISTON", dcx, dHeight - 18);
-            }
+                dctx.fillText("MECHANICAL 3D KINEMATICS: DYNAMIC GEAR TRAIN TRANSMISSION", dcx, dHeight - 20);
 
-            // =================================================================
-            // 4. EEE - 3-PHASE SINE WAVES, ELECTROMAGNETIC TORUS & VOLT ARCS
-            // Theme: High-Voltage Neon Emerald (#10b981), Volt Lime (#22c55e), Electric Cyan (#06b6d4)
-            // =================================================================
-            else if (currentDept === "EEE") {
-                const bgGrad = dctx.createRadialGradient(dcx, dcy, 20, dcx, dcy, dWidth * 0.7);
-                bgGrad.addColorStop(0, "rgba(16, 185, 129, 0.1)");
-                bgGrad.addColorStop(1, "rgba(4, 16, 24, 0.96)");
-                dctx.fillStyle = bgGrad;
-                dctx.fillRect(0, 0, dWidth, dHeight);
+            } else if (currentDept === "EEE") {
+                // Render 3D Electromagnetic Torus Field & Pulsing Sine Waves
+                const r1 = 85, r2 = 35;
+                const points = 40;
 
-                // Waveform Grid
-                dctx.strokeStyle = "rgba(16, 185, 129, 0.1)";
-                dctx.lineWidth = 1;
-                for (let x = 0; x < dWidth; x += 30) {
+                dctx.strokeStyle = "#38bdf8";
+                dctx.lineWidth = 1.5;
+
+                for (let a = 0; a < 8; a++) {
+                    const angleOffset = (a * Math.PI) / 4 + dTime * 0.8;
                     dctx.beginPath();
-                    dctx.moveTo(x, 0);
-                    dctx.lineTo(x, dHeight);
-                    dctx.stroke();
-                }
-                for (let y = 0; y < dHeight; y += 30) {
-                    dctx.beginPath();
-                    dctx.moveTo(0, y);
-                    dctx.lineTo(dWidth, y);
-                    dctx.stroke();
-                }
+                    for (let i = 0; i <= points; i++) {
+                        const u = (i / points) * Math.PI * 2;
+                        const x = (r1 + r2 * Math.cos(u)) * Math.cos(angleOffset);
+                        const y = (r1 + r2 * Math.cos(u)) * Math.sin(angleOffset) * 0.45;
+                        const z = r2 * Math.sin(u);
 
-                // 3-Phase AC Sinusoidal Waves
-                const phases = [
-                    { color: "#10b981", offset: 0 },
-                    { color: "#22c55e", offset: (Math.PI * 2) / 3 },
-                    { color: "#06b6d4", offset: (Math.PI * 4) / 3 }
-                ];
-
-                phases.forEach(p => {
-                    dctx.beginPath();
-                    for (let x = 0; x <= dWidth; x += 4) {
-                        const y = dcy + Math.sin((x / 50) + dTime * 2 + p.offset) * 45;
-                        if (x === 0) dctx.moveTo(x, y);
-                        else dctx.lineTo(x, y);
-                    }
-                    dctx.strokeStyle = p.color;
-                    dctx.lineWidth = 2.2;
-                    dctx.shadowColor = p.color;
-                    dctx.shadowBlur = 8;
-                    dctx.stroke();
-                    dctx.shadowBlur = 0;
-                });
-
-                // Central 3D Rotating Electromagnetic Field Coil
-                const torusR1 = 70, torusR2 = 28;
-                const torusPoints = 32;
-
-                for (let a = 0; a < 6; a++) {
-                    const angleOffset = (a * Math.PI) / 3 + dTime * 0.9;
-                    dctx.beginPath();
-                    for (let i = 0; i <= torusPoints; i++) {
-                        const u = (i / torusPoints) * Math.PI * 2;
-                        const tx = (torusR1 + torusR2 * Math.cos(u)) * Math.cos(angleOffset);
-                        const ty = (torusR1 + torusR2 * Math.cos(u)) * Math.sin(angleOffset) * 0.45;
-                        const tz = torusR2 * Math.sin(u);
-
-                        const py = dcy + ty + tz * 0.8;
-                        const px = dcx + tx;
+                        const py = dcy + y + z * 0.8;
+                        const px = dcx + x;
                         if (i === 0) dctx.moveTo(px, py);
                         else dctx.lineTo(px, py);
                     }
-                    dctx.strokeStyle = "rgba(16, 185, 129, 0.75)";
-                    dctx.lineWidth = 1.5;
                     dctx.stroke();
                 }
 
-                // High-Voltage Plasma Core
-                const corePulse = Math.sin(dTime * 6) * 3;
+                // Central high-voltage core
                 dctx.beginPath();
-                dctx.arc(dcx, dcy, 16 + corePulse, 0, Math.PI * 2);
-                dctx.fillStyle = "#22c55e";
-                dctx.shadowColor = "#34d399";
-                dctx.shadowBlur = 22;
+                dctx.arc(dcx, dcy, 18 + Math.sin(dTime * 5) * 3, 0, Math.PI * 2);
+                dctx.fillStyle = "#a855f7";
+                dctx.shadowColor = "#c084fc";
+                dctx.shadowBlur = 25;
                 dctx.fill();
                 dctx.shadowBlur = 0;
 
-                // Electric Arc Discharges
-                for (let arc = 0; arc < 4; arc++) {
-                    const arcAngle = (arc * Math.PI) / 2 + dTime * 3;
-                    const endX = dcx + Math.cos(arcAngle) * (45 + Math.random() * 20);
-                    const endY = dcy + Math.sin(arcAngle) * (45 + Math.random() * 20);
-                    const midX = (dcx + endX) / 2 + (Math.random() - 0.5) * 15;
-                    const midY = (dcy + endY) / 2 + (Math.random() - 0.5) * 15;
-
-                    dctx.beginPath();
-                    dctx.moveTo(dcx, dcy);
-                    dctx.lineTo(midX, midY);
-                    dctx.lineTo(endX, endY);
-                    dctx.strokeStyle = "#facc15";
-                    dctx.lineWidth = 1.8;
-                    dctx.stroke();
-                }
-
-                dctx.fillStyle = "#10b981";
-                dctx.font = "bold 13px 'Plus Jakarta Sans', sans-serif";
+                dctx.fillStyle = "#c084fc";
+                dctx.font = "bold 15px Inter, sans-serif";
                 dctx.textAlign = "center";
-                dctx.fillText("⚡ EEE 3D ELECTROMAGNETIC SIMULATION: 3-PHASE AC GRID & POWER FLUX", dcx, dHeight - 18);
+                dctx.fillText("EEE 3D ELECTROMAGNETIC FIELD & POWER GRID FLUX", dcx, dHeight - 20);
             }
 
             requestAnimationFrame(renderDept3D);
@@ -3352,7 +3191,6 @@ img, video, canvas, svg {
 
         renderDept3D();
     }
-
 
     // --- 3. 3D PERSPECTIVE CARD TILT EFFECT ---
     function init3DCardTilt() {
@@ -3652,59 +3490,36 @@ img, video, canvas, svg {
     }
 
     // --- 2. Branch Tabs Switcher ---
-        function initBranchTabs() {
+    function initBranchTabs() {
         const buttons = document.querySelectorAll(".branch-tab-btn");
         const titleEl = document.getElementById("deptTitle");
         const badgeEl = document.getElementById("deptBadge");
         const descEl = document.getElementById("deptDesc");
         const labsEl = document.getElementById("deptLabs");
         const careerEl = document.getElementById("deptCareer");
-        const cardEl = document.querySelector(".dept-details-card");
-
-        const themeColors = {
-            CSE: { primary: "#06b6d4", glow: "rgba(6, 182, 212, 0.4)", badgeBg: "rgba(6, 182, 212, 0.15)" },
-            CIVIL: { primary: "#f59e0b", glow: "rgba(245, 158, 11, 0.4)", badgeBg: "rgba(245, 158, 11, 0.15)" },
-            ME: { primary: "#f97316", glow: "rgba(249, 115, 22, 0.4)", badgeBg: "rgba(249, 115, 22, 0.15)" },
-            EEE: { primary: "#10b981", glow: "rgba(16, 185, 129, 0.4)", badgeBg: "rgba(16, 185, 129, 0.15)" }
-        };
 
         buttons.forEach(btn => {
             btn.addEventListener("click", () => {
-                buttons.forEach(b => {
-                    b.classList.remove("active");
-                    b.style.borderColor = "";
-                    b.style.color = "";
-                    b.style.boxShadow = "";
-                });
+                buttons.forEach(b => b.classList.remove("active"));
                 btn.classList.add("active");
 
                 const deptKey = btn.getAttribute("data-dept");
-                const info = BRANCH_DATA[deptKey];
-                if (!info) return;
+                const data = BRANCH_DATA[deptKey];
+                if (!data) return;
 
-                if (titleEl) titleEl.innerText = info.title;
-                if (badgeEl) badgeEl.innerText = info.badge;
-                if (descEl) descEl.innerText = info.desc;
-                if (careerEl) careerEl.innerText = info.career;
+                if (titleEl) titleEl.textContent = data.title;
+                if (badgeEl) badgeEl.textContent = data.badge;
+                if (descEl) descEl.textContent = data.desc;
+                if (careerEl) careerEl.textContent = data.career;
 
-                if (labsEl && info.labs) {
-                    labsEl.innerHTML = info.labs.map(lab => `
+                if (labsEl) {
+                    labsEl.innerHTML = data.labs.map(lab => `
                         <li><span class="check-icon">✓</span> ${lab}</li>
                     `).join("");
                 }
 
-                const t = themeColors[deptKey] || themeColors.CSE;
-                btn.style.borderColor = t.primary;
-                btn.style.color = "#ffffff";
-                btn.style.boxShadow = `0 0 16px ${t.glow}`;
-
-                if (cardEl) {
-                    cardEl.style.borderColor = t.primary;
-                    cardEl.style.boxShadow = `0 10px 30px -10px rgba(0,0,0,0.5), 0 0 20px ${t.glow}`;
-                }
-                if (titleEl) titleEl.style.color = t.primary;
-
-                if (window.setDept3DModel) {
+                // Trigger 3D canvas model change
+                if (typeof window.setDept3DModel === "function") {
                     window.setDept3DModel(deptKey);
                 }
             });
@@ -4018,23 +3833,19 @@ img, video, canvas, svg {
         });
     }
 
-    // --- 11. Load Faculty Showcase from Database with Expand/Collapse ---
-    let allFacultyCardsExpanded = false;
+    // --- 11. Load Faculty Showcase from Database ---
     async function loadFacultyPublic() {
         const grid = document.getElementById("facultyGrid");
-        const toggleWrap = document.getElementById("facultyToggleWrap");
-        const toggleBtn = document.getElementById("btnToggleFaculty");
         if (!grid) return;
 
         try {
             const res = await fetch("/api/faculty");
             const data = await res.json();
             if (data.success && data.faculty && data.faculty.length > 0) {
-                grid.innerHTML = data.faculty.map((f, idx) => {
+                grid.innerHTML = data.faculty.map(f => {
                     const isLead = f.is_hod || f.designation.includes("Director") || f.designation.includes("Principal") || f.designation.includes("Architect");
-                    const hideStyle = (idx >= 4 && !allFacultyCardsExpanded) ? 'style="display:none;"' : '';
                     return `
-                    <div class="faculty-card card-3d" data-fac-index="${idx}" ${hideStyle}>
+                    <div class="faculty-card card-3d">
                         <div style="display:flex; justify-content:space-between; align-items:flex-start;">
                             <div class="faculty-avatar-wrap">
                                 ${f.designation.includes("Director") ? '👨‍💼' : (f.designation.includes("Principal") ? '👨‍🏫' : (f.designation.includes("Architect") ? '💻' : '🎓'))}
@@ -4052,138 +3863,15 @@ img, video, canvas, svg {
                     </div>
                     `;
                 }).join("");
-
-                if (data.faculty.length > 4 && toggleWrap && toggleBtn) {
-                    toggleWrap.style.display = "block";
-                    toggleBtn.innerHTML = allFacultyCardsExpanded
-                        ? `<span>➖ Show Less Faculty Members</span>`
-                        : `<span>➕ Show All Faculty Members (${data.faculty.length})</span>`;
-                    
-                    toggleBtn.onclick = () => {
-                        allFacultyCardsExpanded = !allFacultyCardsExpanded;
-                        const cards = grid.querySelectorAll(".faculty-card");
-                        cards.forEach((c, i) => {
-                            if (i >= 4) c.style.display = allFacultyCardsExpanded ? "block" : "none";
-                        });
-                        toggleBtn.innerHTML = allFacultyCardsExpanded
-                            ? `<span>➖ Show Less Faculty Members</span>`
-                            : `<span>➕ Show All Faculty Members (${data.faculty.length})</span>`;
-                    };
-                }
             }
         } catch (err) {
             console.error("Faculty fetch error:", err);
         }
     }
 
-    // --- 12. Announcement Hub 3-Tab Switcher (Fix Endless Scroll) ---
-    function initAnnouncementHub() {
-        const hubBtns = document.querySelectorAll(".hub-tab-btn");
-        const hubContents = document.querySelectorAll(".hub-tab-content");
-
-        hubBtns.forEach(btn => {
-            btn.addEventListener("click", () => {
-                const targetId = btn.getAttribute("data-hub");
-                hubBtns.forEach(b => b.classList.remove("active"));
-                hubContents.forEach(c => {
-                    c.style.display = "none";
-                    c.classList.remove("active");
-                });
-
-                btn.classList.add("active");
-                const targetEl = document.getElementById(targetId);
-                if (targetEl) {
-                    targetEl.style.display = "block";
-                    targetEl.classList.add("active");
-                }
-            });
-        });
-
-        // Quick jump from nav links
-        document.querySelectorAll('a[href="#notices"]').forEach(a => {
-            a.addEventListener("click", () => {
-                const btn = document.querySelector('.hub-tab-btn[data-hub="hubNotifs"]');
-                if (btn) btn.click();
-            });
-        });
-
-        document.querySelectorAll('a[href="#documents"]').forEach(a => {
-            a.addEventListener("click", (e) => {
-                e.preventDefault();
-                const btn = document.querySelector('.hub-tab-btn[data-hub="hubDocs"]');
-                if (btn) btn.click();
-                const section = document.getElementById("notices");
-                if (section) section.scrollIntoView({ behavior: "smooth" });
-            });
-        });
-    }
-
-    // --- 13. Dynamic Site Content CMS Loader (Every Word Editable) ---
-    async function loadSiteSettings() {
-        try {
-            const res = await fetch("/api/settings");
-            const data = await res.json();
-            if (data.success && data.settings) {
-                const s = data.settings;
-                const setTxt = (id, val) => {
-                    const el = document.getElementById(id);
-                    if (el && val !== undefined && val !== null && val !== "") el.innerText = val;
-                };
-                const setHtml = (id, val) => {
-                    const el = document.getElementById(id);
-                    if (el && val !== undefined && val !== null && val !== "") el.innerHTML = val;
-                };
-
-                setTxt("headerCollegeName", s.college_name);
-                setTxt("headerCollegeSub", s.college_sub);
-                setTxt("heroBadgeTag", s.hero_tag);
-                if (s.hero_title) setHtml("heroMainTitle", s.hero_title);
-                setTxt("heroMainDesc", s.hero_desc);
-
-                setTxt("statVal1", s.stat_1_val);
-                setTxt("statLbl1", s.stat_1_lbl);
-                setTxt("statVal2", s.stat_2_val);
-                setTxt("statLbl2", s.stat_2_lbl);
-                setTxt("statVal3", s.stat_3_val);
-                setTxt("statLbl3", s.stat_3_lbl);
-                setTxt("statVal4", s.stat_4_val);
-                setTxt("statLbl4", s.stat_4_lbl);
-
-                setTxt("directorName", s.director_name);
-                setTxt("directorPost", s.director_post);
-                setTxt("directorQual", s.director_qual);
-                if (s.director_msg) setTxt("directorQuote", `"${s.director_msg}"`);
-
-                setTxt("principalName", s.principal_name);
-                setTxt("principalPost", s.principal_post);
-                setTxt("principalQual", s.principal_qual);
-                if (s.principal_msg) setTxt("principalQuote", `"${s.principal_msg}"`);
-
-                setTxt("contactPhone", s.contact_phone);
-                setTxt("contactEmail", s.contact_email);
-                setTxt("contactAddress", s.contact_address);
-                setTxt("contactHours", s.contact_hours);
-                setTxt("footerPhone", s.contact_phone);
-                setTxt("footerEmail", s.contact_email);
-                setTxt("footerAddress", s.contact_address);
-
-                if (s.featured_campus_image) {
-                    const img = document.getElementById("heroCampusImg");
-                    if (img) img.src = s.featured_campus_image;
-                }
-                setTxt("heroCampusTitle", s.featured_campus_title);
-                setTxt("heroCampusSubtitle", s.featured_campus_subtitle);
-            }
-        } catch (err) {
-            console.error("Site settings fetch error:", err);
-        }
-    }
-
     // --- Initialize All Components ---
     document.addEventListener("DOMContentLoaded", () => {
         initBranchTabs();
-        loadSiteSettings();
-        initAnnouncementHub();
         loadFeaturedBuilding();
         loadNotices("All");
         initNoticeFilter();
@@ -4201,5 +3889,49 @@ img, video, canvas, svg {
 })();
 
 </script>
+
+    <!-- Official Document Letterhead Gazette Modal (See Details) -->
+    <div id="noticeDetailsModal" class="modal-overlay">
+        <div class="modal-box letterhead-modal-box">
+            <button class="modal-close-btn" style="color:#0f172a; font-size:1.8rem;" onclick="document.getElementById('noticeDetailsModal').classList.remove('active')">&times;</button>
+            
+            <div class="letterhead-header">
+                <div class="letterhead-emblem">🏛️</div>
+                <div class="letterhead-title-block">
+                    <h2>GOVERNMENT POLYTECHNIC MAHASI, BAHRAICH</h2>
+                    <h3>राजकीय पॉलिटेक्निक महसी, जनपद बहराइच (उत्तर प्रदेश)</h3>
+                    <p>Affiliated to Board of Technical Education Uttar Pradesh (BTEUP Lucknow) • Approved by AICTE New Delhi</p>
+                    <p style="font-size:0.75rem; color:#cbd5e1; margin-top:2px;">(Run under Public-Private Partnership - PPP Mode)</p>
+                </div>
+            </div>
+
+            <div class="letterhead-meta-bar">
+                <div><strong>Ref No:</strong> <span id="modalNoticeRef">GPMB/BTEUP/2026/042</span></div>
+                <div><strong>Dated:</strong> <span id="modalNoticeDate">26 Oct 2026</span></div>
+                <div><span class="badge-pill badge-gold" id="modalNoticeCat">OFFICIAL CIRCULAR</span></div>
+            </div>
+
+            <div class="letterhead-content">
+                <h4 id="modalNoticeTitle" class="letterhead-notice-title">Notice Title</h4>
+                <div id="modalNoticeBody" class="letterhead-notice-body">
+                    Notice content details...
+                </div>
+            </div>
+
+            <div class="letterhead-footer">
+                <div class="letterhead-signatory">
+                    <strong>By Order: Academic Secretariat</strong>
+                    <span>Government Polytechnic Mahasi, Bahraich</span>
+                </div>
+                <div class="letterhead-actions">
+                    <button class="btn btn-outline btn-sm" style="color:#0f172a; border-color:#94a3b8;" onclick="window.print()">🖨️ Print</button>
+                    <a id="modalNoticeDownloadBtn" href="#" class="btn btn-primary btn-sm" style="display:none;" download>
+                        📥 Download Attached PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
