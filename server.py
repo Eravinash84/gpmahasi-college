@@ -69,6 +69,20 @@ def get_db():
 def hash_pass(pwd: str) -> str:
     return hashlib.sha256(pwd.encode("utf-8")).hexdigest()
 
+MIME_MAP = {
+    ".html": "text/html; charset=utf-8",
+    ".css": "text/css; charset=utf-8",
+    ".js": "application/javascript; charset=utf-8",
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".png": "image/png",
+    ".svg": "image/svg+xml",
+    ".webp": "image/webp",
+    ".json": "application/json; charset=utf-8",
+    ".ico": "image/x-icon",
+    ".txt": "text/plain; charset=utf-8",
+}
+
 class PolytechnicRequestHandler(http.server.BaseHTTPRequestHandler):
 
     def log_message(self, format, *args):
@@ -554,12 +568,15 @@ class PolytechnicRequestHandler(http.server.BaseHTTPRequestHandler):
     def serve_file(self, full_path):
         if not os.path.exists(full_path):
             self.send_response(404)
-            self.send_header("Content-Type", "text/plain")
+            self.send_header("Content-Type", "text/plain; charset=utf-8")
             self.end_headers()
             self.wfile.write(b"File Not Found")
             return
 
-        mime_type, _ = mimetypes.guess_type(full_path)
+        ext = os.path.splitext(full_path)[1].lower()
+        mime_type = MIME_MAP.get(ext)
+        if not mime_type:
+            mime_type, _ = mimetypes.guess_type(full_path)
         if not mime_type:
             mime_type = "application/octet-stream"
 
