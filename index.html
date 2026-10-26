@@ -107,6 +107,33 @@ img, video, canvas, svg {
     width: 100%;
 }
 
+
+.top-admin-badge {
+    flex-shrink: 0;
+    margin-left: 12px;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.35), rgba(30, 41, 59, 0.85));
+    border: 1px solid rgba(56, 189, 248, 0.45);
+    color: #38bdf8;
+    padding: 3px 12px;
+    border-radius: var(--radius-full);
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.top-admin-badge:hover {
+    background: var(--primary);
+    color: #ffffff;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+    transform: translateY(-1px);
+}
+
 .notice-ticker-wrapper {
     display: flex;
     align-items: center;
@@ -1847,6 +1874,9 @@ img, video, canvas, svg {
                     🏛️ Approved by AICTE, New Delhi & Affiliated to Board of Technical Education Uttar Pradesh (BTEUP Lucknow)
                 </div>
             </div>
+            <a href="/admin" class="top-admin-badge" title="College Secretariat & Admin Portal Login">
+                <span>🔒 Admin Login</span>
+            </a>
         </div>
     </div>
 
@@ -1874,8 +1904,9 @@ img, video, canvas, svg {
                 <a href="tel:+918423072439" class="helpline-quick-btn" title="Call Helpline">
                     <span>📞 8423072439</span>
                 </a>
-                <a href="#admissions" class="btn btn-primary btn-sm">Apply Online</a>
-                <a href="/admin" class="btn btn-outline btn-sm">Admin</a>
+                <a href="/admin" class="btn btn-primary btn-sm" style="font-weight:700; background:linear-gradient(135deg, #2563eb, #1d4ed8); border:1px solid #38bdf8; display:inline-flex; align-items:center; gap:6px;">
+                    <span>🔒 Admin Login</span>
+                </a>
             </div>
 
             <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Open Navigation">☰</button>
@@ -1994,6 +2025,7 @@ img, video, canvas, svg {
             <a href="#facilities" class="quick-pill">🏛️ Campus Facilities</a>
             <a href="#gallery" class="quick-pill">📸 Photo Gallery</a>
             <a href="#contact" class="quick-pill">📞 Helpline & Contact</a>
+            <a href="/admin" class="quick-pill" style="border-color:#38bdf8; color:#38bdf8; font-weight:700;">🔒 Admin Portal</a>
         </div>
     </div>
 

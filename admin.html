@@ -106,6 +106,33 @@ img, video, canvas, svg {
     width: 100%;
 }
 
+
+.top-admin-badge {
+    flex-shrink: 0;
+    margin-left: 12px;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.35), rgba(30, 41, 59, 0.85));
+    border: 1px solid rgba(56, 189, 248, 0.45);
+    color: #38bdf8;
+    padding: 3px 12px;
+    border-radius: var(--radius-full);
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.top-admin-badge:hover {
+    background: var(--primary);
+    color: #ffffff;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
+    transform: translateY(-1px);
+}
+
 .notice-ticker-wrapper {
     display: flex;
     align-items: center;
