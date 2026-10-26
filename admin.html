@@ -107,31 +107,9 @@ img, video, canvas, svg {
 }
 
 
-.top-admin-badge {
-    flex-shrink: 0;
-    margin-left: 12px;
-    background: linear-gradient(135deg, rgba(37, 99, 235, 0.35), rgba(30, 41, 59, 0.85));
-    border: 1px solid rgba(56, 189, 248, 0.45);
-    color: #38bdf8;
-    padding: 3px 12px;
-    border-radius: var(--radius-full);
-    font-size: 0.74rem;
-    font-weight: 700;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    white-space: nowrap;
-    transition: all 0.2s ease;
-    z-index: 10;
-}
 
-.top-admin-badge:hover {
-    background: var(--primary);
-    color: #ffffff;
-    box-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
-    transform: translateY(-1px);
-}
+
+
 
 .notice-ticker-wrapper {
     display: flex;
@@ -1770,61 +1748,6 @@ img, video, canvas, svg {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Quick Nav Pills Bar */
-.quick-nav-pills-bar {
-    width: 100%;
-    background: rgba(6, 11, 24, 0.85);
-    border-top: 1px solid rgba(56, 189, 248, 0.15);
-    border-bottom: 1px solid rgba(56, 189, 248, 0.15);
-    padding: 10px 0;
-    position: sticky;
-    top: 72px;
-    z-index: 990;
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-}
-
-.quick-pills-scroll {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    overflow-x: auto;
-    padding: 0 16px;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    flex-wrap: wrap;
-    max-width: 1380px;
-    margin: 0 auto;
-}
-
-.quick-pills-scroll::-webkit-scrollbar {
-    display: none;
-}
-
-.quick-pill {
-    padding: 6px 14px;
-    border-radius: var(--radius-full);
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #cbd5e1;
-    font-size: 0.82rem;
-    font-weight: 600;
-    text-decoration: none;
-    white-space: nowrap;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    transition: all 0.2s ease;
-}
-
-.quick-pill:hover {
-    background: rgba(37, 99, 235, 0.25);
-    border-color: var(--primary-light);
-    color: #fff;
-    transform: translateY(-1px);
-}
-
 /* Faculty View More / Toggle Button */
 .faculty-toggle-wrap {
     text-align: center;
@@ -1851,6 +1774,29 @@ img, video, canvas, svg {
     color: #fff;
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(37, 99, 235, 0.35);
+}
+
+
+.admin-portal-btn {
+    border: 1px solid rgba(56, 189, 248, 0.45) !important;
+    color: #38bdf8 !important;
+    font-weight: 600 !important;
+    padding: 6px 14px !important;
+    border-radius: var(--radius-sm) !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    font-size: 0.82rem !important;
+    transition: all 0.25s ease !important;
+}
+
+.admin-portal-btn:hover {
+    background: rgba(37, 99, 235, 0.25) !important;
+    border-color: #38bdf8 !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.35) !important;
+    transform: translateY(-1px) !important;
 }
 
 </style>
