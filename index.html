@@ -219,19 +219,22 @@ img, video, canvas, svg {
 
 .brand-text h1 {
     font-family: var(--font-heading);
-    font-size: 0.95rem;
+    font-size: 0.98rem;
     font-weight: 700;
     letter-spacing: -0.01em;
     color: #ffffff;
-    line-height: 1.2;
+    line-height: 1.25;
     white-space: nowrap;
 }
 
 .brand-text p {
-    font-size: 0.7rem;
+    font-size: 0.72rem;
     color: var(--primary-light);
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    font-weight: 500;
+    text-transform: none; /* Clean professional mixed-case */
+    line-height: 1.2;
+    margin-top: 2px;
     white-space: nowrap;
 }
 
@@ -239,7 +242,7 @@ img, video, canvas, svg {
     display: flex;
     align-items: center;
     list-style: none;
-    gap: 14px;
+    gap: 8px;
     flex-shrink: 1;
     margin: 0;
     padding: 0;
@@ -249,7 +252,9 @@ img, video, canvas, svg {
     text-decoration: none;
     color: var(--text-secondary);
     font-weight: 600;
-    font-size: 0.84rem;
+    font-size: 0.82rem;
+    padding: 4px 7px;
+    border-radius: var(--radius-sm);
     transition: color 0.2s ease;
     position: relative;
     white-space: nowrap;
@@ -1850,7 +1855,7 @@ img, video, canvas, svg {
         <div class="container nav-container">
             <a href="/" class="nav-brand">
                 <div class="brand-emblem">🏛️</div>
-                <div class="brand-text"><h1 id="headerCollegeName">Govt. Polytechnic Mahasi</h1><p id="headerCollegeSub">Bahraich (U.P.) • PPP Mode</p></div>
+                <div class="brand-text"><h1 id="headerCollegeName">Govt. Polytechnic Mahasi, Bahraich</h1><p id="headerCollegeSub">Approved by AICTE • Affiliated to BTEUP Lucknow • Run under PPP Mode</p></div>
             </a>
 
             <ul class="nav-links">
@@ -1858,11 +1863,10 @@ img, video, canvas, svg {
                 <li><a href="#leadership">Leadership</a></li>
                 <li><a href="#departments">Branches</a></li>
                 <li><a href="#faculty">Faculty</a></li>
-                <li><a href="#gallery">Gallery</a></li>
                 <li><a href="#notices">Notices</a></li>
-                <li><a href="#documents">PDFs</a></li>
+                <li><a href="#documents">Downloads</a></li>
                 <li><a href="#admissions">Admissions</a></li>
-                <li><a href="#facilities">Campus</a></li>
+                <li><a href="#gallery">Gallery</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
 
@@ -1870,8 +1874,8 @@ img, video, canvas, svg {
                 <a href="tel:+918423072439" class="helpline-quick-btn" title="Call Helpline">
                     <span>📞 8423072439</span>
                 </a>
-                <a href="#admissions" class="btn btn-primary btn-sm">Online Admission</a>
-                <a href="/admin" class="btn btn-outline btn-sm">Admin Portal</a>
+                <a href="#admissions" class="btn btn-primary btn-sm">Apply Online</a>
+                <a href="/admin" class="btn btn-outline btn-sm">Admin</a>
             </div>
 
             <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Open Navigation">☰</button>
@@ -1955,7 +1959,6 @@ img, video, canvas, svg {
                             <strong id="heroCampusTitle" class="campus-strip-title">🏛️ Official Campus Building</strong>
                             <span id="heroCampusSubtitle" class="campus-strip-sub">Multi-Story Academic Wing & Student Campus</span>
                         </div>
-                        <span class="badge-pill badge-gold" style="font-size:0.68rem; padding:2px 8px; flex-shrink:0;">16:9 HD</span>
                     </div>
                 </div>
 
