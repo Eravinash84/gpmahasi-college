@@ -51,24 +51,38 @@
     --shadow-glow: 0 0 25px rgba(56, 189, 248, 0.25);
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+html {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden !important;
+    position: relative;
     scroll-behavior: smooth;
 }
 
 body {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden !important;
+    position: relative;
     background-color: var(--bg-main);
     color: var(--text-primary);
     font-family: var(--font-body);
     line-height: 1.6;
-    overflow-x: hidden;
-    position: relative;
     background-image: 
         radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.12) 0%, transparent 40%),
         radial-gradient(circle at 90% 80%, rgba(245, 158, 11, 0.08) 0%, transparent 40%);
     background-attachment: fixed;
+}
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+img, video, canvas, svg {
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 /* Container */
@@ -727,8 +741,11 @@ body {
 .notice-tabs {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: 30px;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+    width: 100%;
 }
 
 .notice-tab-btn {
@@ -740,6 +757,8 @@ body {
     font-size: 0.85rem;
     cursor: pointer;
     font-weight: 500;
+    white-space: nowrap;
+    transition: all 0.2s ease;
 }
 
 .notice-tab-btn.active {
@@ -754,18 +773,21 @@ body {
     gap: 14px;
     max-width: 980px;
     margin: 0 auto;
+    width: 100%;
 }
 
 .notice-card {
     background: var(--bg-card);
     border: 1px solid var(--border-glass);
     border-radius: var(--radius-md);
-    padding: 20px 24px;
+    padding: 18px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
+    gap: 16px;
     transition: all 0.25s ease;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .notice-card:hover {
@@ -1352,6 +1374,22 @@ body {
     .form-group.col-span-2 { grid-column: span 1; }
     .facilities-grid { grid-template-columns: 1fr; }
     .footer-grid { grid-template-columns: 1fr; }
+    .notice-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 14px 16px;
+    }
+    .notice-left {
+        width: 100%;
+        gap: 12px;
+    }
+    .hub-tab-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 10px 16px;
+        font-size: 0.88rem;
+    }
 }
 
 /* Mobile Nav Drawer */
@@ -1644,6 +1682,146 @@ body {
     box-shadow: 0 6px 16px rgba(37, 99, 235, 0.45);
 }
 
+/* ==========================================================================
+   ANNOUNCEMENT HUB (3-TAB ON-DEMAND DISPLAY) & QUICK NAV PILLS
+   ========================================================================== */
+
+.announcement-hub-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.hub-tab-btn {
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid var(--border-glass);
+    color: var(--text-secondary);
+    padding: 12px 24px;
+    border-radius: var(--radius-full);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+
+.hub-tab-btn:hover {
+    color: #fff;
+    border-color: var(--primary-light);
+    transform: translateY(-2px);
+}
+
+.hub-tab-btn.active {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: #ffffff;
+    border-color: #38bdf8;
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+}
+
+.hub-tab-content {
+    display: none;
+    animation: fadeInHub 0.35s ease forwards;
+}
+
+.hub-tab-content.active {
+    display: block;
+}
+
+@keyframes fadeInHub {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Quick Nav Pills Bar */
+.quick-nav-pills-bar {
+    width: 100%;
+    background: rgba(6, 11, 24, 0.85);
+    border-top: 1px solid rgba(56, 189, 248, 0.15);
+    border-bottom: 1px solid rgba(56, 189, 248, 0.15);
+    padding: 10px 0;
+    position: sticky;
+    top: 72px;
+    z-index: 990;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+.quick-pills-scroll {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 0 16px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    flex-wrap: wrap;
+    max-width: 1380px;
+    margin: 0 auto;
+}
+
+.quick-pills-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.quick-pill {
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+.quick-pill:hover {
+    background: rgba(37, 99, 235, 0.25);
+    border-color: var(--primary-light);
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+/* Faculty View More / Toggle Button */
+.faculty-toggle-wrap {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.btn-show-toggle {
+    background: rgba(30, 41, 59, 0.75);
+    border: 1px solid var(--border-glow);
+    color: #38bdf8;
+    padding: 10px 24px;
+    border-radius: var(--radius-full);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.25s ease;
+}
+
+.btn-show-toggle:hover {
+    background: var(--primary);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.35);
+}
+
 </style>
 </head>
 <body>
@@ -1672,10 +1850,7 @@ body {
         <div class="container nav-container">
             <a href="/" class="nav-brand">
                 <div class="brand-emblem">🏛️</div>
-                <div class="brand-text">
-                    <h1>Govt. Polytechnic Mahasi</h1>
-                    <p>Bahraich (U.P.) • PPP Mode</p>
-                </div>
+                <div class="brand-text"><h1 id="headerCollegeName">Govt. Polytechnic Mahasi</h1><p id="headerCollegeSub">Bahraich (U.P.) • PPP Mode</p></div>
             </a>
 
             <ul class="nav-links">
@@ -1730,19 +1905,14 @@ body {
 
         <div class="container hero-grid">
             <div class="hero-content">
-                <div class="hero-badge-pill">
-                    <span class="dot"></span>
-                    <span>AICTE Approved • BTEUP Affiliated • PPP Model</span>
-                </div>
+                <div class="hero-badge-pill"><span class="dot"></span><span id="heroBadgeTag">AICTE Approved • BTEUP Affiliated • PPP Model</span></div>
 
-                <h1 class="hero-title">
+                <h1 class="hero-title" id="heroMainTitle">
                     Pioneering Technical Excellence in <br>
                     <span class="highlight">Govt. Polytechnic Mahasi</span>
                 </h1>
 
-                <p class="hero-desc">
-                    Empowering students of Bahraich and Uttar Pradesh with high-caliber technical diploma education, industry-aligned laboratories, and practical engineering skills.
-                </p>
+                <p class="hero-desc" id="heroMainDesc">Empowering students of Bahraich and Uttar Pradesh with high-caliber technical diploma education, industry-aligned laboratories, and practical engineering skills.</p>
 
                 <div class="hero-actions">
                     <a href="#admissions" class="btn btn-gold">
@@ -1755,20 +1925,20 @@ body {
 
                 <div class="hero-stats-row">
                     <div class="stat-item">
-                        <h3>4</h3>
-                        <p>Core Branches</p>
+                        <h3 id="statVal1">100%</h3>
+                        <p id="statLbl1">Placement Support</p>
                     </div>
                     <div class="stat-item">
-                        <h3>240+</h3>
-                        <p>Annual Intake</p>
+                        <h3 id="statVal2">4 Branches</h3>
+                        <p id="statLbl2">Engineering Diplomas</p>
                     </div>
                     <div class="stat-item">
-                        <h3>16+</h3>
-                        <p>Advanced Labs</p>
+                        <h3 id="statVal3">60 Seats</h3>
+                        <p id="statLbl3">Intake Per Branch</p>
                     </div>
                     <div class="stat-item">
-                        <h3>100%</h3>
-                        <p>Practical Focus</p>
+                        <h3 id="statVal4">15+ Labs</h3>
+                        <p id="statLbl4">High-Tech Labs</p>
                     </div>
                 </div>
             </div>
@@ -1810,6 +1980,20 @@ body {
         </div>
     </section>
 
+    <!-- Quick Section Navigation Pills Bar (Mobile & Desktop Instant Navigation) -->
+    <div class="quick-nav-pills-bar">
+        <div class="quick-pills-scroll">
+            <a href="#notices" class="quick-pill"><span class="live-dot" style="background:#ef4444; width:6px; height:6px; border-radius:50%; display:inline-block;"></span> 🔔 Notices & Alerts</a>
+            <a href="#departments" class="quick-pill">🎓 Diploma Branches</a>
+            <a href="#faculty" class="quick-pill">👨‍🏫 Faculty Mentors</a>
+            <a href="#leadership" class="quick-pill">👔 Leadership Messages</a>
+            <a href="#admissions" class="quick-pill">📝 Apply Online</a>
+            <a href="#facilities" class="quick-pill">🏛️ Campus Facilities</a>
+            <a href="#gallery" class="quick-pill">📸 Photo Gallery</a>
+            <a href="#contact" class="quick-pill">📞 Helpline & Contact</a>
+        </div>
+    </div>
+
     <!-- Leadership Section: Director & Principal -->
     <section class="section section-alt" id="leadership">
         <div class="container">
@@ -1827,13 +2011,13 @@ body {
                     <div class="leader-header">
                         <div class="leader-avatar">👨‍💼</div>
                         <div class="leader-meta">
-                            <h4>Er. Subodh Mishra</h4>
-                            <span class="leader-role-badge">Director</span>
+                            <h4 id="directorName">Er. Subodh Mishra</h4>
+                            <span class="leader-role-badge" id="directorPost">Director</span>
                             <p>Govt. Polytechnic Mahasi, Bahraich (PPP Mode)</p>
-                            <p style="font-size:0.75rem; color:var(--text-muted);">M.Tech, FIE • 24+ Years Engineering & Administrative Experience</p>
+                            <p id="directorQual" style="font-size:0.75rem; color:var(--text-muted);">M.Tech, FIE • 24+ Years Engineering & Administrative Experience</p>
                         </div>
                     </div>
-                    <div class="leader-quote">
+                    <div class="leader-quote" id="directorQuote">
                         "Under the Public-Private Partnership (PPP) model, our prime mission is to bridge the gap between rural talent in Bahraich and cutting-edge industrial standards. We are dedicated to providing modern technical infrastructure, smart classrooms, and rigorous vocational training that equip our diploma holders to lead in nation-building."
                     </div>
                 </div>
@@ -1843,13 +2027,13 @@ body {
                     <div class="leader-header">
                         <div class="leader-avatar">👨‍🏫</div>
                         <div class="leader-meta">
-                            <h4>Er. Rajan Singh</h4>
-                            <span class="leader-role-badge">Principal</span>
+                            <h4 id="principalName">Er. Rajan Singh</h4>
+                            <span class="leader-role-badge" id="principalPost">Principal</span>
                             <p>Govt. Polytechnic Mahasi, Bahraich (PPP Mode)</p>
-                            <p style="font-size:0.75rem; color:var(--text-muted);">M.Tech (Engineering) • 18+ Years Academic & Pedagogical Leadership</p>
+                            <p id="principalQual" style="font-size:0.75rem; color:var(--text-muted);">M.Tech (Engineering) • 18+ Years Academic & Pedagogical Leadership</p>
                         </div>
                     </div>
-                    <div class="leader-quote">
+                    <div class="leader-quote" id="principalQuote">
                         "Welcome to our vibrant campus! At Government Polytechnic Mahasi, discipline, hands-on lab experiments, and ethical values form the bedrock of our pedagogy. Whether in CSE, Civil, Mechanical, or EEE, our faculty mentors every student to realize their full potential."
                     </div>
                 </div>
@@ -1942,58 +2126,82 @@ body {
             <div class="faculty-grid" id="facultyGrid">
                 <!-- Dynamically populated from /api/faculty via loadFacultyPublic() -->
             </div>
+
+            <div class="faculty-toggle-wrap" id="facultyToggleWrap" style="display:none;">
+                <button class="btn-show-toggle" id="btnToggleFaculty">
+                    <span>➕ Show All Faculty Members</span>
+                </button>
+            </div>
         </div>
     </section>
 
-            <!-- Notices, Live Notifications & PDF Documents Section -->
+            <!-- Notices, Live Notifications & PDF Documents Announcement Hub -->
     <section class="section section-alt" id="notices">
         <div class="container">
             <div class="section-head">
-                <span class="section-tag">Announcements & Live Circulars</span>
-                <h2 class="section-title">Notice Board & Official Circulars</h2>
+                <span class="section-tag">Official Secretariat & Board Updates</span>
+                <h2 class="section-title">Announcements, Circulars & Downloads</h2>
                 <p class="section-subtitle">
-                    Stay updated with real-time BTEUP board circulars, examination schemes, admission notifications, and downloadable academic documents.
+                    Select a section below to view real-time notifications, official BTEUP circulars, or downloadable academic documents.
                 </p>
             </div>
 
-            <!-- Prominent Live New Notifications Feed -->
-            <div style="margin-bottom: 25px;">
-                <h3 style="font-size: 1.15rem; color:#fff; display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
-                    <span style="font-size: 1.3rem;">🔔</span> Latest New Notifications & Alerts
-                    <span class="live-badge" style="font-size: 0.65rem;"><span class="live-dot"></span>LIVE FEED</span>
-                </h3>
+            <!-- Modern 3-Tab Hub Navigation Switcher (Fixes Long Page Scrolling) -->
+            <div class="announcement-hub-nav">
+                <button class="hub-tab-btn active" data-hub="hubNotifs">
+                    <span style="font-size:1.2rem;">🔔</span>
+                    <span>Live Notifications & Alerts</span>
+                    <span class="live-badge" style="font-size:0.6rem; padding:1px 6px;"><span class="live-dot"></span>LIVE</span>
+                </button>
+                <button class="hub-tab-btn" data-hub="hubCirculars">
+                    <span style="font-size:1.2rem;">📋</span>
+                    <span>Official Notice Board & Circulars</span>
+                </button>
+                <button class="hub-tab-btn" data-hub="hubDocs">
+                    <span style="font-size:1.2rem;">📄</span>
+                    <span>Academic PDFs & Downloads</span>
+                </button>
+            </div>
+
+            <!-- HUB TAB 1: Live Notifications Feed -->
+            <div class="hub-tab-content active" id="hubNotifs">
+                <div style="margin-bottom: 14px; display:flex; justify-content:space-between; align-items:center;">
+                    <h3 style="font-size: 1.15rem; color:#fff; display: flex; align-items: center; gap: 8px;">
+                        <span>🔔</span> Real-Time Campus Feeds & Urgent Alerts
+                    </h3>
+                </div>
                 <div class="notification-feed" id="newNotificationFeed">
                     <!-- Populated dynamically via loadNotices() -->
                 </div>
             </div>
 
-            <!-- Category Filters -->
-            <div class="notice-tabs" style="margin-bottom: 20px;">
-                <button class="notice-tab-btn active" data-category="All">All Circulars</button>
-                <button class="notice-tab-btn" data-category="New" style="color:#ef4444; font-weight:700;">🔴 Live Alerts</button>
-                <button class="notice-tab-btn" data-category="Admissions">Admissions</button>
-                <button class="notice-tab-btn" data-category="Examination">Examinations</button>
-                <button class="notice-tab-btn" data-category="Placement">Placements</button>
-                <button class="notice-tab-btn" data-category="Academic">Academic</button>
-            </div>
+            <!-- HUB TAB 2: Official Notice Board & Category Filters -->
+            <div class="hub-tab-content" id="hubCirculars" style="display:none;">
+                <div class="notice-tabs">
+                    <button class="notice-tab-btn active" data-category="All">All Circulars</button>
+                    <button class="notice-tab-btn" data-category="New" style="color:#ef4444; font-weight:700;">🔴 Live Alerts</button>
+                    <button class="notice-tab-btn" data-category="Admissions">Admissions</button>
+                    <button class="notice-tab-btn" data-category="Examination">Examinations</button>
+                    <button class="notice-tab-btn" data-category="Placement">Placements</button>
+                    <button class="notice-tab-btn" data-category="Academic">Academic</button>
+                </div>
 
-            <!-- Dynamic Notices List from Database -->
-            <div class="notices-list" id="noticesList">
-                <div style="text-align:center; padding:30px; color:var(--text-muted);">
-                    Loading official notices from database...
+                <div class="notices-list" id="noticesList">
+                    <div style="text-align:center; padding:30px; color:var(--text-muted);">
+                        Loading official notices from database...
+                    </div>
                 </div>
             </div>
 
-            <!-- Download Official Academic PDFs & Syllabus Section -->
-            <div id="documents" style="margin-top: 50px; padding-top: 35px; border-top: 1px solid var(--border-glass);">
+            <!-- HUB TAB 3: Academic Downloads & Syllabi -->
+            <div class="hub-tab-content" id="hubDocs" style="display:none;">
                 <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; margin-bottom:20px;">
                     <div>
-                        <span class="section-tag" style="margin-bottom:6px; display:inline-block;">Downloads & Resources</span>
-                        <h3 style="font-size: 1.4rem; color: #fff; margin:0; display:flex; align-items:center; gap:8px;">
-                            <span>📄</span> Official Academic PDFs & Downloads
+                        <h3 style="font-size: 1.25rem; color: #fff; margin:0; display:flex; align-items:center; gap:8px;">
+                            <span>📄</span> Official Academic PDFs & Syllabi
                         </h3>
                         <p style="color:var(--text-secondary); font-size:0.86rem; margin:4px 0 0 0;">
-                            Official prospectus, semester syllabus, examination date-sheets, and scholarship forms verified by Secretariat.
+                            Prospectus, semester syllabus, examination schemes, and scholarship forms verified by Secretariat.
                         </p>
                     </div>
                     <div style="display:flex; gap:8px; flex-wrap:wrap;">
@@ -2009,6 +2217,7 @@ body {
                     <!-- Populated dynamically via loadDocuments() -->
                 </div>
             </div>
+
         </div>
     </section>
 
@@ -3530,19 +3739,23 @@ body {
         });
     }
 
-    // --- 11. Load Faculty Showcase from Database ---
+    // --- 11. Load Faculty Showcase from Database with Expand/Collapse ---
+    let allFacultyCardsExpanded = false;
     async function loadFacultyPublic() {
         const grid = document.getElementById("facultyGrid");
+        const toggleWrap = document.getElementById("facultyToggleWrap");
+        const toggleBtn = document.getElementById("btnToggleFaculty");
         if (!grid) return;
 
         try {
             const res = await fetch("/api/faculty");
             const data = await res.json();
             if (data.success && data.faculty && data.faculty.length > 0) {
-                grid.innerHTML = data.faculty.map(f => {
+                grid.innerHTML = data.faculty.map((f, idx) => {
                     const isLead = f.is_hod || f.designation.includes("Director") || f.designation.includes("Principal") || f.designation.includes("Architect");
+                    const hideStyle = (idx >= 4 && !allFacultyCardsExpanded) ? 'style="display:none;"' : '';
                     return `
-                    <div class="faculty-card card-3d">
+                    <div class="faculty-card card-3d" data-fac-index="${idx}" ${hideStyle}>
                         <div style="display:flex; justify-content:space-between; align-items:flex-start;">
                             <div class="faculty-avatar-wrap">
                                 ${f.designation.includes("Director") ? '👨‍💼' : (f.designation.includes("Principal") ? '👨‍🏫' : (f.designation.includes("Architect") ? '💻' : '🎓'))}
@@ -3560,15 +3773,138 @@ body {
                     </div>
                     `;
                 }).join("");
+
+                if (data.faculty.length > 4 && toggleWrap && toggleBtn) {
+                    toggleWrap.style.display = "block";
+                    toggleBtn.innerHTML = allFacultyCardsExpanded
+                        ? `<span>➖ Show Less Faculty Members</span>`
+                        : `<span>➕ Show All Faculty Members (${data.faculty.length})</span>`;
+                    
+                    toggleBtn.onclick = () => {
+                        allFacultyCardsExpanded = !allFacultyCardsExpanded;
+                        const cards = grid.querySelectorAll(".faculty-card");
+                        cards.forEach((c, i) => {
+                            if (i >= 4) c.style.display = allFacultyCardsExpanded ? "block" : "none";
+                        });
+                        toggleBtn.innerHTML = allFacultyCardsExpanded
+                            ? `<span>➖ Show Less Faculty Members</span>`
+                            : `<span>➕ Show All Faculty Members (${data.faculty.length})</span>`;
+                    };
+                }
             }
         } catch (err) {
             console.error("Faculty fetch error:", err);
         }
     }
 
+    // --- 12. Announcement Hub 3-Tab Switcher (Fix Endless Scroll) ---
+    function initAnnouncementHub() {
+        const hubBtns = document.querySelectorAll(".hub-tab-btn");
+        const hubContents = document.querySelectorAll(".hub-tab-content");
+
+        hubBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                const targetId = btn.getAttribute("data-hub");
+                hubBtns.forEach(b => b.classList.remove("active"));
+                hubContents.forEach(c => {
+                    c.style.display = "none";
+                    c.classList.remove("active");
+                });
+
+                btn.classList.add("active");
+                const targetEl = document.getElementById(targetId);
+                if (targetEl) {
+                    targetEl.style.display = "block";
+                    targetEl.classList.add("active");
+                }
+            });
+        });
+
+        // Quick jump from nav links
+        document.querySelectorAll('a[href="#notices"]').forEach(a => {
+            a.addEventListener("click", () => {
+                const btn = document.querySelector('.hub-tab-btn[data-hub="hubNotifs"]');
+                if (btn) btn.click();
+            });
+        });
+
+        document.querySelectorAll('a[href="#documents"]').forEach(a => {
+            a.addEventListener("click", (e) => {
+                e.preventDefault();
+                const btn = document.querySelector('.hub-tab-btn[data-hub="hubDocs"]');
+                if (btn) btn.click();
+                const section = document.getElementById("notices");
+                if (section) section.scrollIntoView({ behavior: "smooth" });
+            });
+        });
+    }
+
+    // --- 13. Dynamic Site Content CMS Loader (Every Word Editable) ---
+    async function loadSiteSettings() {
+        try {
+            const res = await fetch("/api/settings");
+            const data = await res.json();
+            if (data.success && data.settings) {
+                const s = data.settings;
+                const setTxt = (id, val) => {
+                    const el = document.getElementById(id);
+                    if (el && val !== undefined && val !== null && val !== "") el.innerText = val;
+                };
+                const setHtml = (id, val) => {
+                    const el = document.getElementById(id);
+                    if (el && val !== undefined && val !== null && val !== "") el.innerHTML = val;
+                };
+
+                setTxt("headerCollegeName", s.college_name);
+                setTxt("headerCollegeSub", s.college_sub);
+                setTxt("heroBadgeTag", s.hero_tag);
+                if (s.hero_title) setHtml("heroMainTitle", s.hero_title);
+                setTxt("heroMainDesc", s.hero_desc);
+
+                setTxt("statVal1", s.stat_1_val);
+                setTxt("statLbl1", s.stat_1_lbl);
+                setTxt("statVal2", s.stat_2_val);
+                setTxt("statLbl2", s.stat_2_lbl);
+                setTxt("statVal3", s.stat_3_val);
+                setTxt("statLbl3", s.stat_3_lbl);
+                setTxt("statVal4", s.stat_4_val);
+                setTxt("statLbl4", s.stat_4_lbl);
+
+                setTxt("directorName", s.director_name);
+                setTxt("directorPost", s.director_post);
+                setTxt("directorQual", s.director_qual);
+                if (s.director_msg) setTxt("directorQuote", `"${s.director_msg}"`);
+
+                setTxt("principalName", s.principal_name);
+                setTxt("principalPost", s.principal_post);
+                setTxt("principalQual", s.principal_qual);
+                if (s.principal_msg) setTxt("principalQuote", `"${s.principal_msg}"`);
+
+                setTxt("contactPhone", s.contact_phone);
+                setTxt("contactEmail", s.contact_email);
+                setTxt("contactAddress", s.contact_address);
+                setTxt("contactHours", s.contact_hours);
+                setTxt("footerPhone", s.contact_phone);
+                setTxt("footerEmail", s.contact_email);
+                setTxt("footerAddress", s.contact_address);
+
+                if (s.featured_campus_image) {
+                    const img = document.getElementById("heroCampusImg");
+                    if (img) img.src = s.featured_campus_image;
+                }
+                setTxt("heroCampusTitle", s.featured_campus_title);
+                setTxt("heroCampusSubtitle", s.featured_campus_subtitle);
+            }
+        } catch (err) {
+            console.error("Site settings fetch error:", err);
+        }
+    }
+
     // --- Initialize All Components ---
     document.addEventListener("DOMContentLoaded", () => {
         initBranchTabs();
+        loadSiteSettings();
+        initAnnouncementHub();
         loadFeaturedBuilding();
         loadNotices("All");
         initNoticeFilter();

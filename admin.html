@@ -1879,6 +1879,10 @@ body {
                 <span>✉️</span> Public Enquiries
             </div>
 
+                        <div class="admin-nav-item" data-tab="tabWebsiteCms" style="color:#38bdf8; font-weight:700;">
+                <span>🌐</span> पूरी वेबसाइट एडिट करें (Live CMS)
+            </div>
+
             <div class="admin-nav-item" data-tab="tabSecurity">
                 <span>🔒</span> Security & Password
             </div>
@@ -2444,6 +2448,176 @@ body {
                 </div>
             </div>
 
+        
+            <!-- 9. LIVE WEBSITE CONTENT CMS (ALL WORDS EDITABLE) -->
+            <div id="tabWebsiteCms" class="admin-tab-content" style="display:none;">
+                <div class="dashboard-header" style="margin-bottom:24px;">
+                    <div>
+                        <h2 style="font-size:1.6rem; color:#fff; display:flex; align-items:center; gap:10px;">
+                            <span>🌐</span> Live Website Content Customizer (पूरी वेबसाइट एडिट करें)
+                        </h2>
+                        <p style="color:#94a3b8; font-size:0.9rem; margin-top:4px;">
+                            Yahan se aap website ke har ek shabd (College Name, Hero Heading, Stats, Director/Principal Message, Contact & Helpline) ko bina code badle live edit kar sakte hain.
+                        </p>
+                    </div>
+                </div>
+
+                <form id="cmsWebsiteForm">
+                    <!-- SECTION 1: HEADER & HERO BANNER -->
+                    <div class="admin-card" style="margin-bottom:24px;">
+                        <h3 style="color:#38bdf8; margin-bottom:16px; font-size:1.15rem; display:flex; align-items:center; gap:8px;">
+                            <span>🏛️</span> 1. College Identity & Hero Banner (मुख्य नाम एवं शीर्षक)
+                        </h3>
+                        <div class="form-grid">
+                            <div class="form-group col-span-2">
+                                <label class="form-label">College Full Name (कॉलेज का पूरा नाम) *</label>
+                                <input type="text" id="cmsCollegeName" class="form-input" required>
+                            </div>
+                            <div class="form-group col-span-2">
+                                <label class="form-label">College Affiliation & Subtitle (संबद्धता विवरण) *</label>
+                                <input type="text" id="cmsCollegeSub" class="form-input" required>
+                            </div>
+                            <div class="form-group col-span-2">
+                                <label class="form-label">Hero Badge Tag (शीर्ष चमकता हुआ टैग)</label>
+                                <input type="text" id="cmsHeroTag" class="form-input">
+                            </div>
+                            <div class="form-group col-span-2">
+                                <label class="form-label">Hero Main Title (मुख्य हेडिंग)</label>
+                                <input type="text" id="cmsHeroTitle" class="form-input">
+                            </div>
+                            <div class="form-group col-span-2">
+                                <label class="form-label">Hero Description Paragraph (मुख्य विवरण)</label>
+                                <textarea id="cmsHeroDesc" class="form-textarea" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 2: KEY STATISTICS -->
+                    <div class="admin-card" style="margin-bottom:24px;">
+                        <h3 style="color:#f59e0b; margin-bottom:16px; font-size:1.15rem; display:flex; align-items:center; gap:8px;">
+                            <span>🏆</span> 2. Key Performance Statistics (4 प्रमुख आंकड़े)
+                        </h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">Stat 1 Value (जैसे: 100%)</label>
+                                <input type="text" id="cmsStat1Val" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Stat 1 Label (जैसे: Placement Support)</label>
+                                <input type="text" id="cmsStat1Lbl" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Stat 2 Value (जैसे: 4 Branches)</label>
+                                <input type="text" id="cmsStat2Val" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Stat 2 Label (जैसे: Diploma Programs)</label>
+                                <input type="text" id="cmsStat2Lbl" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Stat 3 Value (जैसे: 60 Seats)</label>
+                                <input type="text" id="cmsStat3Val" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Stat 3 Label (जैसे: Approved Intake)</label>
+                                <input type="text" id="cmsStat3Lbl" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Stat 4 Value (जैसे: 15+ Labs)</label>
+                                <input type="text" id="cmsStat4Val" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Stat 4 Label (जैसे: High-Tech Labs)</label>
+                                <input type="text" id="cmsStat4Lbl" class="form-input">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 3: LEADERSHIP MESSAGES -->
+                    <div class="admin-card" style="margin-bottom:24px;">
+                        <h3 style="color:#10b981; margin-bottom:16px; font-size:1.15rem; display:flex; align-items:center; gap:8px;">
+                            <span>👔</span> 3. Leadership Messages (निदेशक एवं प्रधानाचार्य संदेश)
+                        </h3>
+                        
+                        <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:18px; margin-bottom:20px;">
+                            <h4 style="color:#38bdf8; margin-bottom:12px;">👨‍💼 Director Details & Message</h4>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label">Director Name</label>
+                                    <input type="text" id="cmsDirName" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Designation / Role</label>
+                                    <input type="text" id="cmsDirPost" class="form-input">
+                                </div>
+                                <div class="form-group col-span-2">
+                                    <label class="form-label">Qualifications & Experience</label>
+                                    <input type="text" id="cmsDirQual" class="form-input">
+                                </div>
+                                <div class="form-group col-span-2">
+                                    <label class="form-label">Director Official Message (संदेश)</label>
+                                    <textarea id="cmsDirMsg" class="form-textarea" rows="4"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); border-radius:12px; padding:18px;">
+                            <h4 style="color:#f59e0b; margin-bottom:12px;">👨‍🏫 Principal Details & Message</h4>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label class="form-label">Principal Name</label>
+                                    <input type="text" id="cmsPrinName" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Designation / Role</label>
+                                    <input type="text" id="cmsPrinPost" class="form-input">
+                                </div>
+                                <div class="form-group col-span-2">
+                                    <label class="form-label">Qualifications & Experience</label>
+                                    <input type="text" id="cmsPrinQual" class="form-input">
+                                </div>
+                                <div class="form-group col-span-2">
+                                    <label class="form-label">Principal Official Message (संदेश)</label>
+                                    <textarea id="cmsPrinMsg" class="form-textarea" rows="4"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 4: CONTACT & HELPLINES -->
+                    <div class="admin-card" style="margin-bottom:24px;">
+                        <h3 style="color:#a855f7; margin-bottom:16px; font-size:1.15rem; display:flex; align-items:center; gap:8px;">
+                            <span>📞</span> 4. Official Contact, Helplines & Address (संपर्क एवं हेल्पलाइन)
+                        </h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">Helplines & WhatsApp Numbers</label>
+                                <input type="text" id="cmsContactPhone" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Official Email Addresses</label>
+                                <input type="text" id="cmsContactEmail" class="form-input">
+                            </div>
+                            <div class="form-group col-span-2">
+                                <label class="form-label">Campus Physical Address</label>
+                                <input type="text" id="cmsContactAddress" class="form-input">
+                            </div>
+                            <div class="form-group col-span-2">
+                                <label class="form-label">Office Working Hours</label>
+                                <input type="text" id="cmsContactHours" class="form-input">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SUBMIT BUTTON -->
+                    <div style="text-align:right; margin-bottom:30px;">
+                        <button type="submit" class="btn btn-primary" style="padding:14px 32px; font-size:1.05rem; box-shadow: 0 0 20px rgba(37,99,235,0.5);">
+                            💾 Save All Website Content (पूरी वेबसाइट सेव करें)
+                        </button>
+                    </div>
+                </form>
+            </div>
+
         </main>
     </div>
 
@@ -2464,6 +2638,11 @@ body {
 
 (function () {
     "use strict";
+
+    let cachedFaculty = [];
+    let cachedNotices = [];
+    let cachedDocuments = [];
+    let cachedPhotos = [];
 
     let authToken = localStorage.getItem("gpmb_admin_token") || null;
     let currentUser = null;
@@ -2778,6 +2957,7 @@ body {
         const list = document.getElementById("adminNoticesList");
 
         if (res.success && res.notices) {
+            cachedNotices = res.notices;
             list.innerHTML = res.notices.map(n => `
                 <div class="notice-card" style="margin-bottom:12px;">
                     <div class="notice-left">
@@ -2789,11 +2969,17 @@ body {
                             <h4>${n.is_urgent ? '<span class="ticker-badge">Urgent</span>' : ''} ${n.title}</h4>
                             <p style="font-size:0.85rem; color:#94a3b8;">${n.content}</p>
                             <span class="badge-pill badge-blue" style="font-size:0.75rem; margin-top:6px; display:inline-block;">${n.category}</span>
+                            ${n.pdf_name ? `<span style="font-size:0.72rem; color:#38bdf8; display:block; margin-top:4px;">📎 ${n.pdf_name}</span>` : ''}
                         </div>
                     </div>
-                    <button class="btn btn-sm btn-outline" style="color:#ef4444; border-color:#ef4444;" onclick="window.deleteNotice(${n.id})">
-                        🗑 Delete
-                    </button>
+                    <div style="display:flex; gap:8px; align-items:center;">
+                        <button class="btn btn-sm btn-outline" style="color:#38bdf8; border-color:#38bdf8;" onclick="window.openEditNoticeModal(${n.id})">
+                            ✏️ Edit
+                        </button>
+                        <button class="btn btn-sm btn-outline" style="color:#ef4444; border-color:#ef4444;" onclick="window.deleteNotice(${n.id})">
+                            🗑 Delete
+                        </button>
+                    </div>
                 </div>
             `).join("");
         }
@@ -2861,6 +3047,7 @@ body {
         const list = document.getElementById("adminFacultyList");
 
         if (res.success && res.faculty) {
+            cachedFaculty = res.faculty;
             list.innerHTML = res.faculty.map(f => `
                 <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:18px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
                     <div>
@@ -2869,9 +3056,14 @@ body {
                         <div style="font-size:0.85rem; color:#38bdf8; margin-top:2px;">${f.designation} • ${f.department}</div>
                         <div style="font-size:0.8rem; color:#94a3b8; margin-top:2px;">${f.qualification} • ${f.experience_years} Yrs Exp. • ✉️ ${f.email}</div>
                     </div>
-                    <button class="btn btn-sm btn-outline" style="color:#ef4444; border-color:#ef4444;" onclick="window.deleteFaculty(${f.id})">
-                        🗑 Delete
-                    </button>
+                    <div style="display:flex; gap:8px; align-items:center;">
+                        <button class="btn btn-sm btn-outline" style="color:#38bdf8; border-color:#38bdf8;" onclick="window.openEditFacultyModal(${f.id})">
+                            ✏️ Edit
+                        </button>
+                        <button class="btn btn-sm btn-outline" style="color:#ef4444; border-color:#ef4444;" onclick="window.deleteFaculty(${f.id})">
+                            🗑 Delete
+                        </button>
+                    </div>
                 </div>
             `).join("");
         }
@@ -2952,6 +3144,7 @@ body {
         if (res.success) {
             adminToast("Message marked as resolved", "success");
             loadEnquiries();
+        loadCmsSettings();
         }
     };
 
@@ -3047,6 +3240,7 @@ body {
                 return;
             }
 
+            cachedPhotos = res.photos;
             list.innerHTML = res.photos.map(p => `
                 <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:12px; display:flex; gap:16px; align-items:center;">
                     <div style="width:90px; height:65px; border-radius:8px; overflow:hidden; flex-shrink:0; background:#000;">
@@ -3057,9 +3251,14 @@ body {
                         <span class="badge-pill badge-blue" style="font-size:0.7rem; padding:2px 8px; margin:2px 0; display:inline-block;">${p.category}</span>
                         <p style="font-size:0.78rem; color:#94a3b8; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; margin:0;">${p.caption || 'No caption'}</p>
                     </div>
-                    <button class="btn btn-sm btn-outline" style="color:#ef4444; border-color:#ef4444; flex-shrink:0;" onclick="window.deleteGalleryPhoto(${p.id})">
-                        🗑️ Delete
-                    </button>
+                    <div style="display:flex; gap:6px; flex-shrink:0;">
+                        <button class="btn btn-sm btn-outline" style="color:#38bdf8; border-color:#38bdf8;" onclick="window.openEditPhotoModal(${p.id})">
+                            ✏️ Edit
+                        </button>
+                        <button class="btn btn-sm btn-outline" style="color:#ef4444; border-color:#ef4444;" onclick="window.deleteGalleryPhoto(${p.id})">
+                            🗑️ Delete
+                        </button>
+                    </div>
                 </div>
             `).join("");
         }
@@ -3289,6 +3488,7 @@ body {
                 return;
             }
 
+            cachedDocuments = res.documents;
             tbody.innerHTML = res.documents.map(d => `
                 <tr>
                     <td><strong style="color:#fff;">${d.title}</strong><br><small style="color:#94a3b8;">${d.file_name}</small></td>
@@ -3300,6 +3500,9 @@ body {
                         <a href="${(d.file_data && d.file_data.startsWith('data:')) ? d.file_data : '/api/documents/download?id=' + d.id}" download="${d.file_name}" class="btn btn-sm btn-outline" style="margin-right:6px; text-decoration:none;">
                             📥 Download
                         </a>
+                        <button class="btn btn-sm btn-outline" style="color:#38bdf8; border-color:#38bdf8; margin-right:6px;" onclick="window.openEditDocumentModal(${d.id})">
+                            ✏️ Edit
+                        </button>
                         <button class="btn btn-sm btn-outline" style="color:#ef4444; border-color:#ef4444;" onclick="window.deleteDocumentAdmin(${d.id})">
                             🗑️ Delete
                         </button>
@@ -3307,6 +3510,281 @@ body {
                 </tr>
             `).join("");
         }
+    }
+
+
+    // =========================================================================
+    // EDIT MODALS CONTROLLERS & FORM SUBMISSIONS (FACULTY, NOTICES, DOCS, PHOTOS)
+    // =========================================================================
+
+    // 1. Edit Faculty
+    window.openEditFacultyModal = function (id) {
+        const fac = cachedFaculty.find(f => f.id === id);
+        if (!fac) {
+            adminToast("Faculty record not found", "error");
+            return;
+        }
+        document.getElementById("editFacId").value = fac.id;
+        document.getElementById("editFacName").value = fac.name;
+        document.getElementById("editFacDesignation").value = fac.designation;
+        document.getElementById("editFacDept").value = fac.department;
+        document.getElementById("editFacQual").value = fac.qualification;
+        document.getElementById("editFacExp").value = fac.experience_years;
+        document.getElementById("editFacEmail").value = fac.email || "";
+        document.getElementById("editFacPhone").value = fac.phone || "";
+        document.getElementById("editFacIsHod").checked = !!fac.is_hod;
+
+        document.getElementById("editFacultyModal").classList.add("active");
+    };
+
+    const editFacultyForm = document.getElementById("editFacultyForm");
+    if (editFacultyForm) {
+        editFacultyForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const payload = {
+                id: parseInt(document.getElementById("editFacId").value),
+                name: document.getElementById("editFacName").value.trim(),
+                designation: document.getElementById("editFacDesignation").value.trim(),
+                department: document.getElementById("editFacDept").value,
+                qualification: document.getElementById("editFacQual").value.trim(),
+                experience_years: parseInt(document.getElementById("editFacExp").value),
+                email: document.getElementById("editFacEmail").value.trim(),
+                phone: document.getElementById("editFacPhone").value.trim(),
+                is_hod: document.getElementById("editFacIsHod").checked ? 1 : 0
+            };
+
+            const res = await apiRequest("/api/faculty", "PUT", payload);
+            if (res.success) {
+                document.getElementById("editFacultyModal").classList.remove("active");
+                adminToast("Faculty updated successfully!", "success");
+                loadFacultyAdmin();
+            } else {
+                adminToast(res.error || "Failed to update faculty", "error");
+            }
+        });
+    }
+
+    // 2. Edit Notice
+    window.openEditNoticeModal = function (id) {
+        const n = cachedNotices.find(item => item.id === id);
+        if (!n) {
+            adminToast("Notice record not found", "error");
+            return;
+        }
+        document.getElementById("editNoticeId").value = n.id;
+        document.getElementById("editNoticeTitle").value = n.title;
+        document.getElementById("editNoticeCategory").value = n.category;
+        document.getElementById("editNoticeContent").value = n.content;
+        document.getElementById("editNoticeUrgent").checked = !!n.is_urgent;
+
+        document.getElementById("editNoticeModal").classList.add("active");
+    };
+
+    let pendingEditNoticePdfData = null;
+    let pendingEditNoticePdfName = null;
+    const editNoticePdfInput = document.getElementById("editNoticePdf");
+    if (editNoticePdfInput) {
+        editNoticePdfInput.addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            pendingEditNoticePdfName = file.name;
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                pendingEditNoticePdfData = event.target.result;
+                adminToast("New PDF Attached: " + file.name, "info");
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    const editNoticeForm = document.getElementById("editNoticeForm");
+    if (editNoticeForm) {
+        editNoticeForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const payload = {
+                id: parseInt(document.getElementById("editNoticeId").value),
+                title: document.getElementById("editNoticeTitle").value.trim(),
+                category: document.getElementById("editNoticeCategory").value,
+                content: document.getElementById("editNoticeContent").value.trim(),
+                is_urgent: document.getElementById("editNoticeUrgent").checked ? 1 : 0
+            };
+            if (pendingEditNoticePdfData) {
+                payload.pdf_data = pendingEditNoticePdfData;
+                payload.pdf_name = pendingEditNoticePdfName;
+            }
+
+            const res = await apiRequest("/api/notices", "PUT", payload);
+            if (res.success) {
+                document.getElementById("editNoticeModal").classList.remove("active");
+                pendingEditNoticePdfData = null;
+                pendingEditNoticePdfName = null;
+                adminToast("Notice updated successfully!", "success");
+                loadNoticesAdmin();
+            } else {
+                adminToast(res.error || "Failed to update notice", "error");
+            }
+        });
+    }
+
+    // 3. Edit Academic Document
+    window.openEditDocumentModal = function (id) {
+        const doc = cachedDocuments.find(d => d.id === id);
+        if (!doc) {
+            adminToast("Document record not found", "error");
+            return;
+        }
+        document.getElementById("editDocId").value = doc.id;
+        document.getElementById("editDocTitle").value = doc.title;
+        document.getElementById("editDocCategory").value = doc.category;
+        document.getElementById("editDocDesc").value = doc.description || "";
+
+        document.getElementById("editDocumentModal").classList.add("active");
+    };
+
+    const editDocForm = document.getElementById("editDocumentForm");
+    if (editDocForm) {
+        editDocForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const payload = {
+                id: parseInt(document.getElementById("editDocId").value),
+                title: document.getElementById("editDocTitle").value.trim(),
+                category: document.getElementById("editDocCategory").value,
+                description: document.getElementById("editDocDesc").value.trim()
+            };
+
+            const res = await apiRequest("/api/documents", "PUT", payload);
+            if (res.success) {
+                document.getElementById("editDocumentModal").classList.remove("active");
+                adminToast("Document updated successfully!", "success");
+                loadDocumentsAdmin();
+            } else {
+                adminToast(res.error || "Failed to update document", "error");
+            }
+        });
+    }
+
+    // 4. Edit Campus Photo
+    window.openEditPhotoModal = function (id) {
+        const p = cachedPhotos.find(item => item.id === id);
+        if (!p) {
+            adminToast("Photo record not found", "error");
+            return;
+        }
+        document.getElementById("editPhotoId").value = p.id;
+        document.getElementById("editPhotoTitle").value = p.title;
+        document.getElementById("editPhotoCategory").value = p.category;
+        document.getElementById("editPhotoCaption").value = p.caption || "";
+
+        document.getElementById("editPhotoModal").classList.add("active");
+    };
+
+    const editPhotoForm = document.getElementById("editPhotoForm");
+    if (editPhotoForm) {
+        editPhotoForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const payload = {
+                id: parseInt(document.getElementById("editPhotoId").value),
+                title: document.getElementById("editPhotoTitle").value.trim(),
+                category: document.getElementById("editPhotoCategory").value,
+                caption: document.getElementById("editPhotoCaption").value.trim()
+            };
+
+            const res = await apiRequest("/api/gallery", "PUT", payload);
+            if (res.success) {
+                document.getElementById("editPhotoModal").classList.remove("active");
+                adminToast("Photo updated successfully!", "success");
+                loadGalleryAdmin();
+            } else {
+                adminToast(res.error || "Failed to update photo", "error");
+            }
+        });
+    }
+
+    // =========================================================================
+    // WEBSITE CONTENT CMS (POORI WEBSITE EDIT KAREIN)
+    // =========================================================================
+
+    async function loadCmsSettings() {
+        const res = await apiRequest("/api/settings");
+        if (res.success && res.settings) {
+            const s = res.settings;
+            const setVal = (id, val) => {
+                const el = document.getElementById(id);
+                if (el && val !== undefined && val !== null) el.value = val;
+            };
+
+            setVal("cmsCollegeName", s.college_name);
+            setVal("cmsCollegeSub", s.college_sub);
+            setVal("cmsHeroTag", s.hero_tag);
+            setVal("cmsHeroTitle", s.hero_title);
+            setVal("cmsHeroDesc", s.hero_desc);
+
+            setVal("cmsStat1Val", s.stat_1_val);
+            setVal("cmsStat1Lbl", s.stat_1_lbl);
+            setVal("cmsStat2Val", s.stat_2_val);
+            setVal("cmsStat2Lbl", s.stat_2_lbl);
+            setVal("cmsStat3Val", s.stat_3_val);
+            setVal("cmsStat3Lbl", s.stat_3_lbl);
+            setVal("cmsStat4Val", s.stat_4_val);
+            setVal("cmsStat4Lbl", s.stat_4_lbl);
+
+            setVal("cmsDirName", s.director_name);
+            setVal("cmsDirPost", s.director_post);
+            setVal("cmsDirQual", s.director_qual);
+            setVal("cmsDirMsg", s.director_msg);
+
+            setVal("cmsPrinName", s.principal_name);
+            setVal("cmsPrinPost", s.principal_post);
+            setVal("cmsPrinQual", s.principal_qual);
+            setVal("cmsPrinMsg", s.principal_msg);
+
+            setVal("cmsContactPhone", s.contact_phone);
+            setVal("cmsContactEmail", s.contact_email);
+            setVal("cmsContactAddress", s.contact_address);
+            setVal("cmsContactHours", s.contact_hours);
+        }
+    }
+
+    const cmsWebsiteForm = document.getElementById("cmsWebsiteForm");
+    if (cmsWebsiteForm) {
+        cmsWebsiteForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const getVal = (id) => document.getElementById(id)?.value?.trim() || "";
+            const payload = {
+                college_name: getVal("cmsCollegeName"),
+                college_sub: getVal("cmsCollegeSub"),
+                hero_tag: getVal("cmsHeroTag"),
+                hero_title: getVal("cmsHeroTitle"),
+                hero_desc: getVal("cmsHeroDesc"),
+                stat_1_val: getVal("cmsStat1Val"),
+                stat_1_lbl: getVal("cmsStat1Lbl"),
+                stat_2_val: getVal("cmsStat2Val"),
+                stat_2_lbl: getVal("cmsStat2Lbl"),
+                stat_3_val: getVal("cmsStat3Val"),
+                stat_3_lbl: getVal("cmsStat3Lbl"),
+                stat_4_val: getVal("cmsStat4Val"),
+                stat_4_lbl: getVal("cmsStat4Lbl"),
+                director_name: getVal("cmsDirName"),
+                director_post: getVal("cmsDirPost"),
+                director_qual: getVal("cmsDirQual"),
+                director_msg: getVal("cmsDirMsg"),
+                principal_name: getVal("cmsPrinName"),
+                principal_post: getVal("cmsPrinPost"),
+                principal_qual: getVal("cmsPrinQual"),
+                principal_msg: getVal("cmsPrinMsg"),
+                contact_phone: getVal("cmsContactPhone"),
+                contact_email: getVal("cmsContactEmail"),
+                contact_address: getVal("cmsContactAddress"),
+                contact_hours: getVal("cmsContactHours")
+            };
+
+            const res = await apiRequest("/api/settings", "POST", payload);
+            if (res.success) {
+                adminToast("Poori website ka content live update ho gaya!", "success");
+            } else {
+                adminToast(res.error || "Failed to save website content", "error");
+            }
+        });
     }
 
     window.deleteDocumentAdmin = async function (id) {
@@ -3353,6 +3831,7 @@ body {
         loadFeaturedBuildingAdmin();
         loadDocumentsAdmin();
         loadEnquiries();
+        loadCmsSettings();
     }
 
     document.addEventListener("DOMContentLoaded", () => {

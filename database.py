@@ -302,7 +302,32 @@ def init_db():
             ("featured_campus_image", default_img),
             ("featured_campus_title", "🏛️ Official Campus Building"),
             ("featured_campus_subtitle", "Multi-Story Academic Wing & Student Campus"),
-            ("featured_campus_aspect", "16:9")
+            ("featured_campus_aspect", "16:9"),
+            ("college_name", "Government Polytechnic Mahasi, Bahraich (PPP Mode)"),
+            ("college_sub", "Approved by AICTE New Delhi • Affiliated to Board of Technical Education Uttar Pradesh (BTEUP) • Run under PPP Mode"),
+            ("hero_tag", "🌟 Admissions Open 2026-27 | AICTE Approved"),
+            ("hero_title", "Empowering Technical Excellence & Industrial Innovation"),
+            ("hero_desc", "Premier Government Polytechnic institution in Bahraich dedicated to building world-class Diploma Engineers in Computer Science, Civil, Mechanical, and Electrical branches with cutting-edge laboratories and placement assurance."),
+            ("stat_1_val", "100%"),
+            ("stat_1_lbl", "Placement & Apprenticeship Support"),
+            ("stat_2_val", "4 Branches"),
+            ("stat_2_lbl", "Premier Engineering Diplomas"),
+            ("stat_3_val", "60 Seats"),
+            ("stat_3_lbl", "Approved Intake Per Branch"),
+            ("stat_4_val", "15+ Labs"),
+            ("stat_4_lbl", "Modern Technical Workshops"),
+            ("director_name", "Er. Subodh Mishra"),
+            ("director_post", "Director"),
+            ("director_qual", "M.Tech, FIE • 24+ Years Engineering & Administrative Experience"),
+            ("director_msg", "Under the Public-Private Partnership (PPP) model, our prime mission is to bridge the gap between rural talent in Bahraich and cutting-edge industrial standards. We are dedicated to providing modern technical infrastructure, smart classrooms, and rigorous vocational training that equip our diploma holders to lead in nation-building."),
+            ("principal_name", "Er. Rajan Singh"),
+            ("principal_post", "Principal"),
+            ("principal_qual", "M.Tech (Engineering) • 18+ Years Academic & Pedagogical Leadership"),
+            ("principal_msg", "Welcome to our vibrant campus! At Government Polytechnic Mahasi, discipline, hands-on lab experiments, and ethical values form the bedrock of our pedagogy. Whether in CSE, Civil, Mechanical, or EEE, our faculty mentors every student to realize their full potential."),
+            ("contact_phone", "+91 9450000001 / +91 8423072439"),
+            ("contact_email", "principal@gpmahasi.ac.in, admission@gpmahasi.ac.in"),
+            ("contact_address", "Government Polytechnic Mahasi, Tehsil Mahasi, Dist. Bahraich, Uttar Pradesh - 271824"),
+            ("contact_hours", "Monday - Saturday: 9:00 AM - 5:00 PM (Closed on Sundays & Gazetted Holidays)")
         ]
         cursor.executemany("""
         INSERT OR REPLACE INTO site_settings (key, value)
