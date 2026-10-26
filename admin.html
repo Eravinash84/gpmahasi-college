@@ -1386,14 +1386,22 @@ body {
    ========================================================================== */
 
 /* Official Campus Building 16:9 Aspect Ratio Display */
+.campus-photo-wrapper {
+    width: 100%;
+    margin-bottom: 18px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
 .campus-16-9-box {
     position: relative;
     width: 100%;
     aspect-ratio: 16 / 9;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
     overflow: hidden;
     border: 1px solid var(--border-glow);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    border-bottom: none;
     background: #000;
 }
 
@@ -1406,20 +1414,36 @@ body {
 }
 
 .campus-16-9-box:hover img {
-    transform: scale(1.04);
+    transform: scale(1.03);
 }
 
-.campus-16-9-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: linear-gradient(to top, rgba(6, 11, 24, 0.95) 0%, rgba(6, 11, 24, 0.6) 60%, transparent 100%);
-    padding: 10px 14px;
+.campus-caption-strip {
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid var(--border-glow);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    padding: 8px 14px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    backdrop-filter: blur(4px);
+    gap: 10px;
+}
+
+.campus-strip-title {
+    font-size: 0.85rem;
+    color: #ffffff;
+    display: block;
+    font-weight: 700;
+}
+
+.campus-strip-sub {
+    font-size: 0.72rem;
+    color: #38bdf8;
+    display: block;
+}
+
+.campus-16-9-overlay {
+    display: none;
 }
 
 /* Live New Notification Alert Board */
