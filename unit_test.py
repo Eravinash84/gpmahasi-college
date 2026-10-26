@@ -26,7 +26,9 @@ def test_logic():
     assert "faculty" in tables
     assert "enquiries" in tables
     assert "gallery_photos" in tables
-    print("[PASS] All 7 tables verified")
+    assert "site_settings" in tables
+    assert "documents" in tables
+    print("[PASS] All 9 tables verified")
 
     # 2. Verify admin user
     c.execute("SELECT username, password_hash FROM admin_users WHERE username = 'admin'")
@@ -92,6 +94,21 @@ def test_logic():
     photo_count = c.fetchone()[0]
     print(f"[PASS] Verified {photo_count} campus gallery photos in database")
     assert photo_count >= 5
+
+    # 9. Test Site Settings (Featured 16:9 Official Campus Building Photo)
+    c.execute("SELECT value FROM site_settings WHERE key = 'featured_campus_aspect'")
+    aspect = c.fetchone()[0]
+    assert aspect == "16:9"
+    c.execute("SELECT value FROM site_settings WHERE key = 'featured_campus_image'")
+    feat_img = c.fetchone()[0]
+    assert feat_img is not None and len(feat_img) > 0
+    print("[PASS] Verified Featured 16:9 Campus Building site setting")
+
+    # 10. Test Academic Documents & PDF downloads
+    c.execute("SELECT COUNT(*) FROM documents")
+    doc_count = c.fetchone()[0]
+    print(f"[PASS] Verified {doc_count} academic PDF documents in database")
+    assert doc_count >= 4
 
     conn.close()
     print("\n[SUCCESS] 100% OF DATABASE, MODELS & BACKEND LOGIC VERIFIED WITH ZERO ERRORS!")

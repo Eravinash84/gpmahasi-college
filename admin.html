@@ -1339,6 +1339,244 @@ body {
     font-weight: 600;
 }
 
+/* ==========================================================================
+   OFFICIAL CAMPUS BUILDING 16:9 & LIVE NOTIFICATIONS & PDF DOWNLOADS
+   ========================================================================== */
+
+/* Official Campus Building 16:9 Aspect Ratio Display */
+.campus-16-9-box {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--border-glow);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    background: #000;
+}
+
+.campus-16-9-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.campus-16-9-box:hover img {
+    transform: scale(1.04);
+}
+
+.campus-16-9-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to top, rgba(6, 11, 24, 0.95) 0%, rgba(6, 11, 24, 0.6) 60%, transparent 100%);
+    padding: 10px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(4px);
+}
+
+/* Live New Notification Alert Board */
+.notification-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 30px;
+}
+
+.notif-card {
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-md);
+    padding: 18px 22px;
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.notif-card.urgent {
+    border-left: 4px solid var(--accent-red);
+    background: linear-gradient(90deg, rgba(239, 68, 68, 0.08) 0%, rgba(15, 23, 42, 0.7) 100%);
+}
+
+.notif-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary-light);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.notif-icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: rgba(56, 189, 248, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+}
+
+.notif-card.urgent .notif-icon-box {
+    background: rgba(239, 68, 68, 0.18);
+    color: #ef4444;
+}
+
+.notif-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.notif-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+}
+
+.live-badge {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
+    animation: flashPulse 1.2s infinite;
+}
+
+.live-dot {
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    border-radius: 50%;
+}
+
+.notif-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+    line-height: 1.4;
+}
+
+.notif-body {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.notif-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+/* Document & PDF Download Cards */
+.document-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 24px;
+}
+
+.doc-download-card {
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.doc-download-card:hover {
+    border-color: var(--primary-light);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(56, 189, 248, 0.15);
+}
+
+.doc-badge-pill {
+    font-size: 0.72rem;
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    background: rgba(56, 189, 248, 0.12);
+    color: var(--primary-light);
+    display: inline-block;
+    margin-bottom: 12px;
+}
+
+.doc-card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.doc-card-desc {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 16px;
+    flex: 1;
+}
+
+.doc-card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 12px;
+    margin-bottom: 14px;
+    font-size: 0.76rem;
+    color: var(--text-muted);
+}
+
+.btn-download-pdf {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.86rem;
+    padding: 9px 16px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.btn-download-pdf:hover {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.45);
+}
+
 </style>
 
     <style>
@@ -1565,6 +1803,10 @@ body {
 
             <div class="admin-nav-item" data-tab="tabGallery">
                 <span>📸</span> Campus Photos Manager
+            </div>
+
+            <div class="admin-nav-item" data-tab="tabDocuments">
+                <span>📄</span> PDF Documents Manager
             </div>
 
             <div class="admin-nav-item" data-tab="tabEnquiries">
@@ -1821,6 +2063,11 @@ body {
                                 </select>
                             </div>
                             <div class="form-group" style="margin-bottom:14px; display:flex; align-items:center; gap:10px;">
+                                <div class="form-group" style="margin-bottom:12px;">
+                                    <label class="form-label">Attach PDF Document (Optional)</label>
+                                    <input type="file" id="newNoticePdf" class="form-input" accept=".pdf,application/pdf">
+                                    <small style="color:#94a3b8; font-size:0.75rem;">Students can download this PDF directly from the notice board.</small>
+                                </div>
                                 <input type="checkbox" id="newNoticeUrgent" style="width:18px; height:18px;">
                                 <label for="newNoticeUrgent" style="color:#ef4444; font-weight:600; font-size:0.88rem; cursor:pointer;">Mark as URGENT (Flashes on Top Marquee)</label>
                             </div>
@@ -1901,8 +2148,60 @@ body {
                 </div>
             </div>
 
-                        <!-- TAB: CAMPUS PHOTOS MANAGER -->
+                                    <!-- TAB: CAMPUS PHOTOS MANAGER -->
             <div id="tabGallery" class="admin-tab-content" style="display:none;">
+                
+                <!-- 16:9 Official Campus Building Photo Editor -->
+                <div style="background:var(--bg-card); border:1px solid var(--border-glow); border-radius:var(--radius-lg); padding:24px; margin-bottom:26px; box-shadow:var(--shadow-card);">
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:16px;">
+                        <div>
+                            <h3 style="font-size:1.25rem; color:#fff; margin:0; display:flex; align-items:center; gap:8px;">
+                                <span>🏛️</span> Official Campus Building Photo (16:9 Aspect Ratio)
+                            </h3>
+                            <p style="font-size:0.82rem; color:var(--text-secondary); margin:4px 0 0 0;">
+                                This photo appears on the public website homepage in exact 16:9 widescreen format.
+                            </p>
+                        </div>
+                        <span class="badge-pill badge-gold" style="font-size:0.75rem;">16:9 HD Ratio</span>
+                    </div>
+
+                    <form id="formFeaturedBuilding">
+                        <div style="display:grid; grid-template-columns: 1.1fr 1fr; gap:22px; align-items:center;">
+                            <div>
+                                <div class="form-group" style="margin-bottom:12px;">
+                                    <label class="form-label">Banner Title *</label>
+                                    <input type="text" id="featBuildingTitle" class="form-input" value="🏛️ Official Campus Building" required>
+                                </div>
+                                <div class="form-group" style="margin-bottom:12px;">
+                                    <label class="form-label">Subtitle / Description</label>
+                                    <input type="text" id="featBuildingSubtitle" class="form-input" value="Multi-Story Academic Wing & Student Campus">
+                                </div>
+                                <div class="form-group" style="margin-bottom:14px;">
+                                    <label class="form-label">Upload New Photo (Auto-crops to 16:9 HD)</label>
+                                    <input type="file" id="featBuildingFileInput" class="form-input" accept="image/*">
+                                    <small style="color:#94a3b8; font-size:0.75rem; display:block; margin-top:4px;">Any photo uploaded from mobile/PC is automatically cropped & scaled to 16:9 (1280x720) ratio.</small>
+                                </div>
+                                <button type="submit" id="btnSaveFeatBuilding" class="btn btn-primary" style="width:100%;">
+                                    💾 Save Official Building Photo (16:9)
+                                </button>
+                            </div>
+
+                            <!-- Live 16:9 Preview -->
+                            <div>
+                                <p style="font-size:0.8rem; color:#38bdf8; margin-bottom:8px; font-weight:600;">Current 16:9 Homepage Photo:</p>
+                                <div class="campus-16-9-box">
+                                    <img id="featBuildingCurrentImg" src="/static/assets/campus-main.jpg" alt="Featured Building">
+                                </div>
+                                <div id="featBuildingPreviewContainer" style="display:none; margin-top:10px;">
+                                    <p style="font-size:0.75rem; color:#10b981; font-weight:600;">New 16:9 Cropped Preview:</p>
+                                    <div class="campus-16-9-box">
+                                        <img id="featBuildingPreviewImg" src="" alt="New Preview">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
                 <div style="display:grid; grid-template-columns: 1fr 1.3fr; gap:26px;">
                     <!-- Add Photo Form -->
                     <div style="background:var(--bg-card); border:1px solid var(--border-glass); border-radius:var(--radius-lg); padding:26px;">
@@ -1955,6 +2254,72 @@ body {
                         </div>
                         <div id="adminGalleryList" style="display:flex; flex-direction:column; gap:12px; max-height:680px; overflow-y:auto; padding-right:6px;">
                             <!-- Populated dynamically by loadGalleryAdmin() -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                        <!-- TAB: PDF DOCUMENTS & CIRCULARS MANAGER -->
+            <div id="tabDocuments" class="admin-tab-content" style="display:none;">
+                <div style="display:grid; grid-template-columns: 1fr 1.6fr; gap:26px;">
+                    <!-- Upload PDF Form -->
+                    <div style="background:var(--bg-card); border:1px solid var(--border-glass); border-radius:var(--radius-lg); padding:26px;">
+                        <h3 style="font-size:1.2rem; color:#fff; margin-bottom:12px;">Upload Academic PDF</h3>
+                        <p style="font-size:0.82rem; color:var(--text-secondary); margin-bottom:18px;">
+                            Upload official syllabus, prospectus, exam schemes, and forms. Students can download directly with 1 click.
+                        </p>
+                        <form id="addDocumentForm">
+                            <div class="form-group" style="margin-bottom:14px;">
+                                <label class="form-label">Document Title *</label>
+                                <input type="text" id="docTitle" class="form-input" placeholder="e.g. Diploma Admission Prospectus 2026-27" required>
+                            </div>
+                            <div class="form-group" style="margin-bottom:14px;">
+                                <label class="form-label">Category *</label>
+                                <select id="docCategory" class="form-select" required>
+                                    <option value="Admissions">Admissions & Prospectus</option>
+                                    <option value="Examination">Examination & Datesheets</option>
+                                    <option value="Syllabus">Curriculum & Syllabus</option>
+                                    <option value="Fee & Guidelines">Fee Structure & Guidelines</option>
+                                    <option value="General Circular">General Notice & Orders</option>
+                                </select>
+                            </div>
+                            <div class="form-group" style="margin-bottom:14px;">
+                                <label class="form-label">Description / Summary</label>
+                                <textarea id="docDescription" class="form-textarea" rows="3" placeholder="Brief summary of document content, eligibility or instructions..."></textarea>
+                            </div>
+                            <div class="form-group" style="margin-bottom:16px;">
+                                <label class="form-label">Select PDF File (.pdf) *</label>
+                                <input type="file" id="docFileInput" class="form-input" accept=".pdf,application/pdf" required>
+                                <div id="docFileInfo" style="display:none; margin-top:6px; font-size:0.8rem; color:#38bdf8;"></div>
+                            </div>
+                            <button type="submit" id="btnUploadDoc" class="btn btn-primary" style="width:100%;">
+                                🚀 Upload & Publish PDF Document
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Document List Table -->
+                    <div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                            <h3 style="font-size:1.2rem; color:#fff; margin:0;">Published PDF Documents</h3>
+                            <button class="btn btn-sm btn-outline" onclick="loadDocumentsAdmin()">🔄 Refresh List</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Document Title</th>
+                                        <th>Category</th>
+                                        <th>Size</th>
+                                        <th>Uploaded</th>
+                                        <th>Downloads</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adminDocTbody">
+                                    <!-- Populated dynamically via loadDocumentsAdmin() -->
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -2256,29 +2621,17 @@ body {
     // View Application Details Modal
     window.viewAppDetails = function (app) {
         alert(
-            `APPLICATION DETAILS [${app.app_no}]
-
-` +
-            `Full Name: ${app.full_name}
-` +
-            `Father Name: ${app.father_name}
-` +
-            `DOB: ${app.dob} | Gender: ${app.gender} | Category: ${app.category}
-` +
-            `Branch: ${app.branch}
-` +
-            `10th Marks: ${app.high_school_percent}% (${app.high_school_board})
-` +
-            `JEECUP Roll: ${app.jeecup_roll_no || 'N/A'} | Rank: ${app.jeecup_rank || 'N/A'}
-` +
-            `Phone: ${app.phone} | Email: ${app.email}
-` +
-            `Address: ${app.address}, Dist: ${app.district}, Pin: ${app.pincode}
-` +
-            `Status: ${app.status}
-` +
-            `Admin Remarks: ${app.admin_remarks || 'None'}
-` +
+            `APPLICATION DETAILS [${app.app_no}]\n\n` +
+            `Full Name: ${app.full_name}\n` +
+            `Father Name: ${app.father_name}\n` +
+            `DOB: ${app.dob} | Gender: ${app.gender} | Category: ${app.category}\n` +
+            `Branch: ${app.branch}\n` +
+            `10th Marks: ${app.high_school_percent}% (${app.high_school_board})\n` +
+            `JEECUP Roll: ${app.jeecup_roll_no || 'N/A'} | Rank: ${app.jeecup_rank || 'N/A'}\n` +
+            `Phone: ${app.phone} | Email: ${app.email}\n` +
+            `Address: ${app.address}, Dist: ${app.district}, Pin: ${app.pincode}\n` +
+            `Status: ${app.status}\n` +
+            `Admin Remarks: ${app.admin_remarks || 'None'}\n` +
             `Applied At: ${app.created_at}`
         );
     };
@@ -2391,7 +2744,24 @@ body {
         }
     };
 
-    // Publish Notice Form Handler
+    // Publish Notice Form Handler with PDF Attachment
+    let pendingNoticePdfData = "";
+    let pendingNoticePdfName = "";
+    const noticePdfInput = document.getElementById("newNoticePdf");
+    if (noticePdfInput) {
+        noticePdfInput.addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            pendingNoticePdfName = file.name;
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                pendingNoticePdfData = event.target.result;
+                adminToast(`Attached PDF: ${file.name}`, "info");
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
     const noticeForm = document.getElementById("publishNoticeForm");
     if (noticeForm) {
         noticeForm.addEventListener("submit", async (e) => {
@@ -2400,12 +2770,16 @@ body {
                 title: document.getElementById("newNoticeTitle").value.trim(),
                 category: document.getElementById("newNoticeCategory").value,
                 is_urgent: document.getElementById("newNoticeUrgent").checked,
-                content: document.getElementById("newNoticeContent").value.trim()
+                content: document.getElementById("newNoticeContent").value.trim(),
+                pdf_data: pendingNoticePdfData,
+                pdf_name: pendingNoticePdfName
             };
 
             const res = await apiRequest("/api/notices", "POST", payload);
             if (res.success) {
                 noticeForm.reset();
+                pendingNoticePdfData = "";
+                pendingNoticePdfName = "";
                 adminToast("Notice published to public website!", "success");
                 loadNoticesAdmin();
                 loadStats();
@@ -2673,6 +3047,213 @@ body {
         });
     }
 
+    // 12. Featured 16:9 Official Campus Building Photo Manager
+    let pendingFeatured16_9 = "";
+    const featFileInput = document.getElementById("featBuildingFileInput");
+    const featPreviewImg = document.getElementById("featBuildingPreviewImg");
+    const featPreviewContainer = document.getElementById("featBuildingPreviewContainer");
+
+    if (featFileInput) {
+        featFileInput.addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const img = new Image();
+                img.onload = () => {
+                    // Force exact 16:9 ratio with center crop
+                    const targetAspect = 16 / 9;
+                    let srcW = img.width, srcH = img.height;
+                    let cropX = 0, cropY = 0, cropW = srcW, cropH = srcH;
+                    if (srcW / srcH > targetAspect) {
+                        cropW = Math.round(srcH * targetAspect);
+                        cropX = Math.round((srcW - cropW) / 2);
+                    } else {
+                        cropH = Math.round(srcW / targetAspect);
+                        cropY = Math.round((srcH - cropH) / 2);
+                    }
+
+                    const canvas = document.createElement("canvas");
+                    canvas.width = 1280;
+                    canvas.height = 720;
+                    const ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, cropX, cropY, cropW, cropH, 0, 0, 1280, 720);
+                    pendingFeatured16_9 = canvas.toDataURL("image/jpeg", 0.88);
+
+                    if (featPreviewImg) featPreviewImg.src = pendingFeatured16_9;
+                    if (featPreviewContainer) featPreviewContainer.style.display = "block";
+                    adminToast("Campus photo automatically cropped to 16:9 HD ratio!", "info");
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    const featForm = document.getElementById("formFeaturedBuilding");
+    if (featForm) {
+        featForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const title = document.getElementById("featBuildingTitle").value.trim();
+            const subtitle = document.getElementById("featBuildingSubtitle").value.trim();
+            const imgData = pendingFeatured16_9 || (document.getElementById("featBuildingUrl") ? document.getElementById("featBuildingUrl").value.trim() : "");
+
+            if (!imgData) {
+                adminToast("Please select a new photo or keep the current one!", "error");
+                return;
+            }
+
+            const btn = document.getElementById("btnSaveFeatBuilding");
+            if (btn) { btn.disabled = true; btn.innerText = "Saving 16:9 Photo..."; }
+
+            const res = await apiRequest("/api/settings", "POST", {
+                featured_campus_image: imgData,
+                featured_campus_title: title || "🏛️ Official Campus Building",
+                featured_campus_subtitle: subtitle || "Multi-Story Academic Wing & Student Campus"
+            });
+
+            if (btn) { btn.disabled = false; btn.innerText = "💾 Save Official Building Photo (16:9)"; }
+
+            if (res.success) {
+                adminToast("Official Campus Building 16:9 photo updated on live website!", "success");
+                loadFeaturedBuildingAdmin();
+            } else {
+                adminToast(res.error || "Failed to update campus building photo", "error");
+            }
+        });
+    }
+
+    async function loadFeaturedBuildingAdmin() {
+        const res = await apiRequest("/api/settings");
+        if (res.success && res.settings) {
+            const titleInput = document.getElementById("featBuildingTitle");
+            const subInput = document.getElementById("featBuildingSubtitle");
+            const curImg = document.getElementById("featBuildingCurrentImg");
+
+            if (titleInput && res.settings.featured_campus_title) titleInput.value = res.settings.featured_campus_title;
+            if (subInput && res.settings.featured_campus_subtitle) subInput.value = res.settings.featured_campus_subtitle;
+            if (curImg && res.settings.featured_campus_image) curImg.src = res.settings.featured_campus_image;
+        }
+    }
+
+    // 13. Documents & PDF Management
+    let pendingDocData = "";
+    let pendingDocSize = 0;
+    let pendingDocName = "";
+
+    const docFileInput = document.getElementById("docFileInput");
+    if (docFileInput) {
+        docFileInput.addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            if (file.type !== "application/pdf" && !file.name.toLowerCase().endsWith(".pdf")) {
+                adminToast("Please select a valid PDF file!", "error");
+                docFileInput.value = "";
+                return;
+            }
+
+            pendingDocName = file.name;
+            pendingDocSize = Math.round(file.size / 1024);
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                pendingDocData = event.target.result;
+                const infoEl = document.getElementById("docFileInfo");
+                if (infoEl) {
+                    infoEl.innerHTML = `Selected: <strong>${file.name}</strong> (${pendingDocSize} KB)`;
+                    infoEl.style.display = "block";
+                }
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    const docForm = document.getElementById("addDocumentForm");
+    if (docForm) {
+        docForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const title = document.getElementById("docTitle").value.trim();
+            const category = document.getElementById("docCategory").value;
+            const description = document.getElementById("docDescription").value.trim();
+
+            if (!title || !pendingDocData) {
+                adminToast("Please provide Title and select a PDF file!", "error");
+                return;
+            }
+
+            const btn = document.getElementById("btnUploadDoc");
+            if (btn) { btn.disabled = true; btn.innerText = "Uploading PDF..."; }
+
+            const res = await apiRequest("/api/documents", "POST", {
+                title,
+                category,
+                file_name: pendingDocName || `${title.replace(/\s+/g, '_')}.pdf`,
+                file_data: pendingDocData,
+                file_size_kb: pendingDocSize,
+                description
+            });
+
+            if (btn) { btn.disabled = false; btn.innerText = "🚀 Upload & Publish PDF"; }
+
+            if (res.success) {
+                docForm.reset();
+                pendingDocData = "";
+                pendingDocName = "";
+                pendingDocSize = 0;
+                const infoEl = document.getElementById("docFileInfo");
+                if (infoEl) infoEl.style.display = "none";
+                adminToast("PDF Document published successfully for students!", "success");
+                loadDocumentsAdmin();
+            } else {
+                adminToast(res.error || "Failed to upload document", "error");
+            }
+        });
+    }
+
+    async function loadDocumentsAdmin() {
+        const res = await apiRequest("/api/documents");
+        const tbody = document.getElementById("adminDocTbody");
+        if (!tbody) return;
+
+        if (res.success && res.documents) {
+            if (res.documents.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#94a3b8; padding:30px;">No PDF documents uploaded yet.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = res.documents.map(d => `
+                <tr>
+                    <td><strong style="color:#fff;">${d.title}</strong><br><small style="color:#94a3b8;">${d.file_name}</small></td>
+                    <td><span class="badge-pill badge-blue">${d.category}</span></td>
+                    <td>${d.file_size_kb || 0} KB</td>
+                    <td>${d.uploaded_date}</td>
+                    <td><span class="badge-pill badge-gold">${d.download_count || 0}</span></td>
+                    <td style="white-space:nowrap;">
+                        <a href="${(d.file_data && d.file_data.startsWith('data:')) ? d.file_data : '/api/documents/download?id=' + d.id}" download="${d.file_name}" class="btn btn-sm btn-outline" style="margin-right:6px; text-decoration:none;">
+                            📥 Download
+                        </a>
+                        <button class="btn btn-sm btn-outline" style="color:#ef4444; border-color:#ef4444;" onclick="window.deleteDocumentAdmin(${d.id})">
+                            🗑️ Delete
+                        </button>
+                    </td>
+                </tr>
+            `).join("");
+        }
+    }
+
+    window.deleteDocumentAdmin = async function (id) {
+        if (!confirm("Are you sure you want to delete this PDF document? Students will no longer be able to download it.")) return;
+        const res = await apiRequest(`/api/documents?id=${id}`, "DELETE");
+        if (res.success) {
+            adminToast("Document deleted successfully", "success");
+            loadDocumentsAdmin();
+        } else {
+            adminToast(res.error || "Failed to delete document", "error");
+        }
+    };
+
     // Tab Navigation for Admin Sections
     function initAdminNavTabs() {
         const tabs = document.querySelectorAll(".admin-nav-item");
@@ -2703,6 +3284,8 @@ body {
         loadNoticesAdmin();
         loadFacultyAdmin();
         loadGalleryAdmin();
+        loadFeaturedBuildingAdmin();
+        loadDocumentsAdmin();
         loadEnquiries();
     }
 

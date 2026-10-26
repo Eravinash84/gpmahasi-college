@@ -16,6 +16,7 @@ import sqlite3
 import mimetypes
 import secrets
 import hashlib
+import base64
 from urllib.parse import urlparse, parse_qs
 from datetime import datetime, date
 
@@ -270,6 +271,52 @@ class PolytechnicRequestHandler(http.server.BaseHTTPRequestHandler):
                 rows = [dict(row) for row in cursor.fetchall()]
                 self.send_json({"success": True, "photos": rows})
 
+            # 7.2 Site Settings (Featured 16:9 Campus Building image, titles)
+            elif path == "/api/settings":
+                cursor.execute("SELECT key, value FROM site_settings")
+                settings = {row[0]: row[1] for row in cursor.fetchall()}
+                self.send_json({"success": True, "settings": settings})
+
+            # 7.3 Documents & PDF Downloads
+            elif path == "/api/documents":
+                category = query.get("category", [None])[0]
+                if category and category != "All":
+                    cursor.execute("SELECT id, title, category, file_name, file_size_kb, uploaded_date, description, download_count, file_data FROM documents WHERE category = ? ORDER BY id DESC", (category,))
+                else:
+                    cursor.execute("SELECT id, title, category, file_name, file_size_kb, uploaded_date, description, download_count, file_data FROM documents ORDER BY id DESC")
+                rows = [dict(row) for row in cursor.fetchall()]
+                self.send_json({"success": True, "documents": rows})
+
+            # 7.4 Stream Direct PDF Download
+            elif path == "/api/documents/download":
+                doc_id = query.get("id", [None])[0]
+                if not doc_id:
+                    return self.send_error_json("Document ID required")
+                cursor.execute("SELECT file_name, file_data, download_count FROM documents WHERE id = ?", (doc_id,))
+                row = cursor.fetchone()
+                if not row:
+                    return self.send_error_json("Document not found", 404)
+                
+                cursor.execute("UPDATE documents SET download_count = download_count + 1 WHERE id = ?", (doc_id,))
+                conn.commit()
+
+                file_data_str = row["file_data"]
+                file_name = row["file_name"]
+                if "base64," in file_data_str:
+                    b64_content = file_data_str.split("base64,")[1]
+                    raw_pdf = base64.b64decode(b64_content)
+                else:
+                    raw_pdf = file_data_str.encode("utf-8")
+
+                self.send_response(200)
+                self.send_header("Content-Type", "application/pdf")
+                self.send_header("Content-Disposition", f'attachment; filename="{file_name}"')
+                self.send_header("Content-Length", str(len(raw_pdf)))
+                self.send_cors_headers()
+                self.end_headers()
+                self.wfile.write(raw_pdf)
+                return
+
             # 8. Check Auth Session
             elif path == "/api/auth/check":
                 is_auth = self.is_admin_authenticated()
@@ -415,15 +462,17 @@ class PolytechnicRequestHandler(http.server.BaseHTTPRequestHandler):
                 category = payload.get("category", "General").strip()
                 content = payload.get("content", "").strip()
                 is_urgent = 1 if payload.get("is_urgent") else 0
+                pdf_data = payload.get("pdf_data", "").strip()
+                pdf_name = payload.get("pdf_name", "").strip()
                 today_str = date.today().strftime("%d %b %Y")
 
                 if not title or not content:
                     return self.send_error_json("Notice title and content are required")
 
                 cursor.execute("""
-                INSERT INTO notices (title, category, content, published_date, is_urgent, posted_by)
-                VALUES (?, ?, ?, ?, ?, 'Principal Office')
-                """, (title, category, content, today_str, is_urgent))
+                INSERT INTO notices (title, category, content, published_date, is_urgent, posted_by, pdf_data, pdf_name)
+                VALUES (?, ?, ?, ?, ?, 'Principal Office', ?, ?)
+                """, (title, category, content, today_str, is_urgent, pdf_data, pdf_name))
                 conn.commit()
                 new_id = cursor.lastrowid
                 return self.send_json({"success": True, "id": new_id, "message": "Notice published successfully"})
@@ -487,6 +536,33 @@ class PolytechnicRequestHandler(http.server.BaseHTTPRequestHandler):
                 """, (title, category, image_data, caption))
                 conn.commit()
                 return self.send_json({"success": True, "id": cursor.lastrowid, "message": "Campus photo added successfully"})
+
+            # 9. Update Site Settings (Featured 16:9 Campus Building Image, etc.)
+            elif path == "/api/settings":
+                for k, v in payload.items():
+                    cursor.execute("INSERT OR REPLACE INTO site_settings (key, value) VALUES (?, ?)", (k, str(v)))
+                conn.commit()
+                return self.send_json({"success": True, "message": "Site settings updated successfully"})
+
+            # 10. Upload Academic PDF Document (Admin)
+            elif path == "/api/documents":
+                title = payload.get("title", "").strip()
+                category = payload.get("category", "General").strip()
+                file_name = payload.get("file_name", "document.pdf").strip()
+                file_data = payload.get("file_data", "").strip()
+                file_size_kb = int(payload.get("file_size_kb", 0))
+                description = payload.get("description", "").strip()
+                today_str = date.today().strftime("%d %b %Y")
+
+                if not title or not file_data:
+                    return self.send_error_json("Title and PDF file data are required")
+
+                cursor.execute("""
+                INSERT INTO documents (title, category, file_name, file_data, file_size_kb, uploaded_date, description)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+                """, (title, category, file_name, file_data, file_size_kb, today_str, description))
+                conn.commit()
+                return self.send_json({"success": True, "id": cursor.lastrowid, "message": "PDF document uploaded successfully"})
 
             else:
                 self.send_error_json("Endpoint not found", 404)
@@ -605,6 +681,14 @@ class PolytechnicRequestHandler(http.server.BaseHTTPRequestHandler):
                 cursor.execute("DELETE FROM gallery_photos WHERE id = ?", (photo_id,))
                 conn.commit()
                 return self.send_json({"success": True, "message": "Campus photo deleted"})
+
+            elif path == "/api/documents":
+                doc_id = query.get("id", [None])[0]
+                if not doc_id:
+                    return self.send_error_json("Document ID required")
+                cursor.execute("DELETE FROM documents WHERE id = ?", (doc_id,))
+                conn.commit()
+                return self.send_json({"success": True, "message": "Document deleted successfully"})
 
             else:
                 self.send_error_json("Unknown DELETE endpoint", 404)

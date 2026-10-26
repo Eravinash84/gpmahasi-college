@@ -136,6 +136,38 @@ def init_db():
     )
     """)
 
+    # Site Settings Table (For dynamic Featured Campus Building Photo, titles, etc.)
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS site_settings (
+        key TEXT PRIMARY KEY,
+        value TEXT NOT NULL,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+    """)
+
+    # Documents & PDF Downloads Table (Admin can upload, students can download)
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS documents (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT NOT NULL,
+        category TEXT NOT NULL,
+        file_name TEXT NOT NULL,
+        file_data TEXT NOT NULL,
+        file_size_kb INTEGER DEFAULT 0,
+        uploaded_date TEXT NOT NULL,
+        description TEXT,
+        download_count INTEGER DEFAULT 0,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+    """)
+
+    # Ensure notices table has pdf_data and pdf_name columns
+    notice_cols = [r[1] for r in cursor.execute("PRAGMA table_info(notices)").fetchall()]
+    if "pdf_data" not in notice_cols:
+        cursor.execute("ALTER TABLE notices ADD COLUMN pdf_data TEXT")
+    if "pdf_name" not in notice_cols:
+        cursor.execute("ALTER TABLE notices ADD COLUMN pdf_name TEXT")
+
     conn.commit()
 
     # Seed Admin User if not exists
@@ -257,6 +289,45 @@ def init_db():
         INSERT INTO gallery_photos (title, category, image_data, caption)
         VALUES (?, ?, ?, ?)
         """, initial_photos)
+        conn.commit()
+
+    # Seed Site Settings if empty
+    cursor.execute("SELECT COUNT(*) FROM site_settings")
+    if cursor.fetchone()[0] == 0:
+        cursor.execute("SELECT image_data FROM gallery_photos ORDER BY id ASC LIMIT 1")
+        photo_row = cursor.fetchone()
+        default_img = photo_row[0] if photo_row else "/static/assets/campus-main.jpg"
+
+        initial_settings = [
+            ("featured_campus_image", default_img),
+            ("featured_campus_title", "🏛️ Official Campus Building"),
+            ("featured_campus_subtitle", "Multi-Story Academic Wing & Student Campus"),
+            ("featured_campus_aspect", "16:9")
+        ]
+        cursor.executemany("""
+        INSERT OR REPLACE INTO site_settings (key, value)
+        VALUES (?, ?)
+        """, initial_settings)
+        conn.commit()
+
+    # Seed Sample Academic PDF Documents if empty
+    cursor.execute("SELECT COUNT(*) FROM documents")
+    if cursor.fetchone()[0] == 0:
+        import base64
+        sample_pdf_bytes = b"%PDF-1.4\n1 0 obj\n<<\n/Type /Catalog\n/Pages 2 0 R\n>>\nendobj\n2 0 obj\n<<\n/Type /Pages\n/Kids [3 0 R]\n/Count 1\n>>\nendobj\n3 0 obj\n<<\n/Type /Page\n/Parent 2 0 R\n/MediaBox [0 0 612 792]\n/Resources <<\n/Font <<\n/F1 4 0 R\n>>\n>>\n/Contents 5 0 R\n>>\nendobj\n4 0 obj\n<<\n/Type /Font\n/Subtype /Type1\n/BaseFont /Helvetica\n>>\nendobj\n5 0 obj\n<<\n/Length 75\n>>\nstream\nBT\n/F1 16 Tf\n50 720 Td\n(Government Polytechnic Mahasi, Bahraich - Official Document) Tj\nET\nendstream\nendobj\nxref\n0 6\n0000000000 65535 f \n0000000009 00000 n \n0000000058 00000 n \n0000000115 00000 n \n0000000261 00000 n \n0000000340 00000 n \ntrailer\n<<\n/Size 6\n/Root 1 0 R\n>>\nstartxref\n467\n%%EOF\n"
+        sample_pdf_base64 = "data:application/pdf;base64," + base64.b64encode(sample_pdf_bytes).decode("utf-8")
+        today_date = date.today().strftime("%d %b %Y")
+
+        initial_docs = [
+            ("Diploma Engineering Admission Prospectus 2026-27", "Admissions", "GPM_Admission_Prospectus_2026-27.pdf", sample_pdf_base64, 480, today_date, "Complete admission guide, eligibility, seat matrix & counseling schedule for CSE, Civil, ME & EEE branches.", 142),
+            ("BTEUP Even Semester Examination Scheme & Schedule", "Examination", "BTEUP_Exam_Schedule_Semester_2026.pdf", sample_pdf_base64, 320, "22 Oct 2026", "Official Board of Technical Education UP date-sheet, timing and examination center guidelines.", 289),
+            ("CSE Branch 3-Year Complete Curriculum & Syllabus (BTEUP)", "Syllabus", "BTEUP_CSE_Diploma_Syllabus.pdf", sample_pdf_base64, 615, "15 Oct 2026", "AICTE & BTEUP revised course syllabus, semester subjects, lab experiments and marking scheme.", 95),
+            ("Polytechnic Scholarship & Fee Structure Notification", "Fee & Guidelines", "GPM_Scholarship_Fee_Structure.pdf", sample_pdf_base64, 250, "10 Oct 2026", "UP Post-Matric scholarship eligibility criteria, income guidelines and annual fee breakdown.", 178)
+        ]
+        cursor.executemany("""
+        INSERT INTO documents (title, category, file_name, file_data, file_size_kb, uploaded_date, description, download_count)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        """, initial_docs)
         conn.commit()
 
     conn.close()
