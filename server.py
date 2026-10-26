@@ -635,6 +635,106 @@ class PolytechnicRequestHandler(http.server.BaseHTTPRequestHandler):
                 conn.commit()
                 return self.send_json({"success": True, "message": "Photo updated successfully"})
 
+            # 4. Update Faculty Member
+            elif path == "/api/faculty":
+                fac_id = payload.get("id")
+                name = payload.get("name", "").strip()
+                designation = payload.get("designation", "").strip()
+                department = payload.get("department", "").strip()
+                qualification = payload.get("qualification", "").strip()
+                experience_years = int(payload.get("experience_years", 1))
+                email = payload.get("email", "").strip()
+                phone = payload.get("phone", "").strip()
+                is_hod = 1 if payload.get("is_hod") else 0
+
+                if not fac_id or not name:
+                    return self.send_error_json("Faculty ID and Name are required")
+
+                cursor.execute("""
+                UPDATE faculty
+                SET name = ?, designation = ?, department = ?, qualification = ?, experience_years = ?, email = ?, phone = ?, is_hod = ?
+                WHERE id = ?
+                """, (name, designation, department, qualification, experience_years, email, phone, is_hod, fac_id))
+                conn.commit()
+                return self.send_json({"success": True, "message": "Faculty details updated successfully"})
+
+            # 5. Update Notice / Circular
+            elif path == "/api/notices":
+                notice_id = payload.get("id")
+                title = payload.get("title", "").strip()
+                category = payload.get("category", "General").strip()
+                content = payload.get("content", "").strip()
+                is_urgent = 1 if payload.get("is_urgent") else 0
+                pdf_data = payload.get("pdf_data")
+                pdf_name = payload.get("pdf_name")
+
+                if not notice_id or not title:
+                    return self.send_error_json("Notice ID and Title are required")
+
+                if pdf_data:
+                    cursor.execute("""
+                    UPDATE notices
+                    SET title = ?, category = ?, content = ?, is_urgent = ?, pdf_data = ?, pdf_name = ?
+                    WHERE id = ?
+                    """, (title, category, content, is_urgent, pdf_data, pdf_name, notice_id))
+                else:
+                    cursor.execute("""
+                    UPDATE notices
+                    SET title = ?, category = ?, content = ?, is_urgent = ?
+                    WHERE id = ?
+                    """, (title, category, content, is_urgent, notice_id))
+                conn.commit()
+                return self.send_json({"success": True, "message": "Notice updated successfully"})
+
+            # 6. Update Academic Document
+            elif path == "/api/documents":
+                doc_id = payload.get("id")
+                title = payload.get("title", "").strip()
+                category = payload.get("category", "General").strip()
+                description = payload.get("description", "").strip()
+                file_data = payload.get("file_data")
+                file_name = payload.get("file_name")
+                file_size_kb = payload.get("file_size_kb")
+
+                if not doc_id or not title:
+                    return self.send_error_json("Document ID and Title are required")
+
+                if file_data:
+                    cursor.execute("""
+                    UPDATE documents
+                    SET title = ?, category = ?, description = ?, file_data = ?, file_name = ?, file_size_kb = ?
+                    WHERE id = ?
+                    """, (title, category, description, file_data, file_name, file_size_kb, doc_id))
+                else:
+                    cursor.execute("""
+                    UPDATE documents
+                    SET title = ?, category = ?, description = ?
+                    WHERE id = ?
+                    """, (title, category, description, doc_id))
+                conn.commit()
+                return self.send_json({"success": True, "message": "Document updated successfully"})
+
+            # 7. Update Student
+            elif path == "/api/students":
+                student_id = payload.get("id")
+                full_name = payload.get("full_name", "").strip()
+                branch = payload.get("branch", "").strip()
+                semester = int(payload.get("semester", 1))
+                phone = payload.get("phone", "").strip()
+                email = payload.get("email", "").strip()
+                fee_status = payload.get("fee_status", "Paid").strip()
+
+                if not student_id:
+                    return self.send_error_json("Student ID is required")
+
+                cursor.execute("""
+                UPDATE students
+                SET full_name = ?, branch = ?, semester = ?, phone = ?, email = ?, fee_status = ?
+                WHERE id = ?
+                """, (full_name, branch, semester, phone, email, fee_status, student_id))
+                conn.commit()
+                return self.send_json({"success": True, "message": "Student record updated successfully"})
+
             else:
                 self.send_error_json("Unknown PUT endpoint", 404)
 
